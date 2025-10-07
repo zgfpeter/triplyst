@@ -1,95 +1,98 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import { Volkhov } from "next/font/google";
+
+const volkhov = Volkhov({
+  subsets: ["latin"],
+  weight: ["400", "700"], // optional, choose what you need
+});
+
+
+type ItineraryYear = {
+  id: number;
+  year: number;
+  trips: number;
+  totalDays: number;
+  budget: number;
+  countriesVisited: number;
+  tripsCompleted: number;
+};
+
+
+const itineraryYears: ItineraryYear[] = [
+  { 
+    id: 1, 
+    year: 2025, 
+    trips: 3, 
+    totalDays: 32, 
+    budget: 7200, 
+    countriesVisited: 4, 
+    tripsCompleted: 1 
+  },
+  { 
+    id: 2, 
+    year: 2026, 
+    trips: 3, 
+    totalDays: 41, 
+    budget: 8900, 
+    countriesVisited: 5, 
+    tripsCompleted: 2 
+  },
+  { 
+    id: 3, 
+    year: 2027, 
+    trips: 4, 
+    totalDays: 56, 
+    budget: 11200, 
+    countriesVisited: 6, 
+    tripsCompleted: 3 
+  },
+  { 
+    id: 4, 
+    year: 2028, 
+    trips: 5, 
+    totalDays: 68, 
+    budget: 13800, 
+    countriesVisited: 7, 
+    tripsCompleted: 4 
+  },
+  { 
+    id: 5, 
+    year: 2029, 
+    trips: 4, 
+    totalDays: 49, 
+    budget: 9800, 
+    countriesVisited: 6, 
+    tripsCompleted: 2 
+  },
+  { 
+    id: 6, 
+    year: 2030, 
+    trips: 4, 
+    totalDays: 54, 
+    budget: 10500, 
+    countriesVisited: 5, 
+    tripsCompleted: 1 
+  },
+];
+
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+return (
+  <div className="years-container">
+    {itineraryYears.map((item)=>(
+      <div key={item.id} className={`year-box ${volkhov.className}`}>
+        <div className="year">{item.year}</div>
+        <div className="trip-info-container">
+          <div className="trips">Trips: {item.trips}</div>
+          <div className="completed">Completed: {item.tripsCompleted}/{item.trips}</div>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+        
+        <div className="days">Total days: {item.totalDays}</div>
+        <div className="budget">Budget: {item.budget}</div>
+        <div className="countriesVisited">Countries visited: {item.countriesVisited}</div>
+        
+      </div>
+      
+    ))}
+  </div>
+)
 }

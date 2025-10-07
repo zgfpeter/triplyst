@@ -1,0 +1,26 @@
+// mixins = reusable blocks of CSS, similar to a function
+// define a set of styles once
+// reuse the set of styles anywhere, optionally passing parameters
+
+// define a mixin
+// @mixin mixin-name{
+//     property:value;
+// }
+
+// use the mixin
+// .selector {
+//     @include mixin-name;
+// }
+
+// ex
+
+// @mixin rounded{
+//     border-radius: 10px;
+//     padding: 1rem;
+//     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+// }
+
+// .card {
+//     @include rounded;
+//     background-color: white;
+// }

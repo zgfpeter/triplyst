@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "title": "Santorini Summer Vacation",
+    "startDate": "2025-07-10",
+    "endDate": "2025-07-17",
+    "destination": "Santorini, Greece",
+    "budget": 1500,
+    "type": "VACATION"
+  },
+  {
+    "id": 2,
+    "title": "Paris City Tour",
+    "startDate": "2025-09-05",
+    "endDate": "2025-09-10",
+    "destination": "Paris, France",
+    "budget": 1200,
+    "type": "VACATION"
+  },
+  {
+    "id": 3,
+    "title": "Rome Adventure",
+    "startDate": "2025-10-12",
+    "endDate": "2025-10-15",
+    "destination": "Rome, Italy",
+    "budget": 800,
+    "type": "BUSINESS"
+  },
+  {
+    "id": 4,
+    "title": "Barcelona Short Trip",
+    "startDate": "2025-06-20",
+    "endDate": "2025-06-23",
+    "destination": "Barcelona, Spain",
+    "budget": 950,
+    "type": "FAMILY"
+  },
+  {
+    "id": 5,
+    "title": "Athens City Weekend",
+    "startDate": "2025-06-05",
+    "endDate": "2025-06-07",
+    "destination": "Athens, Greece",
+    "budget": 400,
+    "type": "FAMILY"
+  },
+  {
+    "id": 6,
+    "title": "Lisbon Explorer",
+    "startDate": "2025-09-20",
+    "endDate": "2025-09-25",
+    "destination": "Lisbon, Portugal",
+    "budget": 1100,
+    "type": "BUSINESS"
+  },
+  {
+    "id": 7,
+    "title": "Istanbul Cultural Trip",
+    "startDate": "2025-07-25",
+    "endDate": "2025-07-30",
+    "destination": "Istanbul, Turkey",
+    "budget": 1300,
+    "type": "VACATION"
+  },
+  {
+    "id": 8,
+    "title": "Venice Short Trip",
+    "startDate": "2025-10-18",
+    "endDate": "2025-10-20",
+    "destination": "Venice, Italy",
+    "budget": 700,
+    "type": "FAMILY"
+  }
+]
