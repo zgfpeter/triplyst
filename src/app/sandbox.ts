@@ -18,6 +18,7 @@ type Trip = {
 
 const [trips, setTrips] = useState<Trip[]>([]);
 
+  const [loading, setLoading] = useState(true);
 // fetch data from local file 
 useEffect(()=>{
     fetch("/data/trips_data.json").then((res)=>res.json()).then((data:Trip[])=>setTrips(data))
@@ -45,6 +46,23 @@ const typeColors: { [key in Trip['type']]: string } = {
   "":""
 };
 
+
+ 
+
+
+  useEffect(() => {
+    fetch('/api/trips')
+      .then((res) => res.json())
+      .then((data: Trip[]) => {
+        console.log('Fetched trips:', data); // 🔹 check if fetch works
+        setTrips(data);
+      })
+      .catch((err) => console.error('Fetch error:', err))
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) return <p>Loading trips...</p>;
+  if (!trips.length) return <p>No trips found</p>;
 
 
   // get year and month
@@ -77,12 +95,11 @@ const typeColors: { [key in Trip['type']]: string } = {
 
   return (
     <main className="single-year-container">
-        
       {Object.keys(tripsByYearMonth)
         .sort((a, b) => Number(a) - Number(b)) // sort years
-        .map((year) => (
-          <div key={year}>
-            <h1 className="page-heading">Your trips for {year}</h1>
+        .map((trip) => (
+          <div key={trip}>
+            <h1 className="page-heading">Your trips for 2025</h1>
             {Object.keys(tripsByYearMonth[Number(year)])
               .sort((a, b) => monthNames.indexOf(a) - monthNames.indexOf(b)) // sort months
               .map((month) => (

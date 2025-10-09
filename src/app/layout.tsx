@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono,Volkhov } from "next/font/google";
 import "./globals.css";
 import "@/styles/globals.scss"
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+
+
+const volkhov = Volkhov({
   subsets: ["latin"],
+  weight: ["400", "700"],
+  variable:'--font-volkhov',
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${volkhov.variable}`}>
         {children}
       </body>
     </html>
