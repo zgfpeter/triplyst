@@ -6,7 +6,8 @@
     "endDate": "2025-07-17",
     "destination": "Santorini, Greece",
     "budget": 1500,
-    "type": "VACATION"
+    "type": "VACATION",
+    "description":"Do absolutely nothing all day every day"
   },
   {
     "id": 2,
@@ -15,7 +16,8 @@
     "endDate": "2025-09-10",
     "destination": "Paris, France",
     "budget": 1200,
-    "type": "VACATION"
+    "type": "VACATION",
+    "description":"Go to eiffel tower, obvs"
   },
   {
     "id": 3,
@@ -24,7 +26,8 @@
     "endDate": "2025-10-15",
     "destination": "Rome, Italy",
     "budget": 800,
-    "type": "BUSINESS"
+    "type": "BUSINESS",
+    "description":"Walking tour on first day"
   },
   {
     "id": 4,
@@ -33,7 +36,8 @@
     "endDate": "2025-06-23",
     "destination": "Barcelona, Spain",
     "budget": 950,
-    "type": "FAMILY"
+    "type": "FAMILY",
+    "description":"Visit aunt Margaery"
   },
   {
     "id": 5,
@@ -42,7 +46,8 @@
     "endDate": "2025-06-07",
     "destination": "Athens, Greece",
     "budget": 400,
-    "type": "FAMILY"
+    "type": "FAMILY",
+    "description":"Quality time with the family"
   },
   {
     "id": 6,
@@ -51,7 +56,8 @@
     "endDate": "2025-09-25",
     "destination": "Lisbon, Portugal",
     "budget": 1100,
-    "type": "BUSINESS"
+    "type": "BUSINESS",
+    "description":"Conference"
   },
   {
     "id": 7,
@@ -60,7 +66,8 @@
     "endDate": "2025-07-30",
     "destination": "Istanbul, Turkey",
     "budget": 1300,
-    "type": "VACATION"
+    "type": "VACATION",
+    "description":"Stay at the airbnb"
   },
   {
     "id": 8,
@@ -69,6 +76,7 @@
     "endDate": "2025-10-20",
     "destination": "Venice, Italy",
     "budget": 700,
-    "type": "FAMILY"
+    "type": "FAMILY",
+    "description":"Explore venice"
   }
 ]

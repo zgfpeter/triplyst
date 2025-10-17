@@ -1,0 +1,75 @@
+// single trip styles
+@use "../mixins.scss" as *;
+@use "../globals.scss" as *;
+@use "../responsive" as *;
+@use "../variables.scss" as *;
+
+.item {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  padding: 1em;
+  height: 100%;
+  min-height: 100vh;
+  justify-content: center;
+  margin: auto;
+
+  .item__container {
+    @include flex-column;
+    @include card-style(rgb(218, 216, 216), white);
+    padding: 1em;
+    gap: 1em;
+    margin: 1em 0;
+
+    .item__container--location {
+      align-self: flex-end;
+      justify-self: center;
+      padding: 0.25em;
+
+      // location icon
+      svg {
+        color: rgb(53, 81, 157);
+      }
+    }
+
+    .item__container--description {
+      border-top: 1px solid $link-hover;
+      padding-top: 1em;
+    }
+  }
+
+  .item__container--type-btns {
+    display: flex;
+    justify-content: space-between;
+
+    .edit--delete--btns {
+      display: flex;
+      gap: 1em;
+
+      button {
+        color: $orange-custom;
+
+        &:hover {
+          color: $dark-blue;
+        }
+      }
+    }
+  }
+
+  .item__container--type-btns button {
+    font-size: 1.5em;
+  }
+  .back-forward-btns {
+    display: flex;
+    justify-content: space-evenly;
+
+    button {
+      font-size: 1.5em;
+      color: $dark-blue;
+
+      &:hover {
+        color: $orange-custom;
+      }
+    }
+  }
+}

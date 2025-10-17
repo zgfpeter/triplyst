@@ -11,6 +11,7 @@ export type Trip = {
   destination: string;
   budget: number;
   type: "VACATION" | "BUSINESS" | "FAMILY" | "";
+  description:string;
 };
 
 type TripStore = {

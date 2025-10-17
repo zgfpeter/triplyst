@@ -1,19 +1,21 @@
 export const trips = [
   {
     title: "Santorini Summer Vacation",
+    destination: "Santorini, Greece",
     startDate: "2025-07-10",
     endDate: "2025-07-17",
-    destination: "Santorini, Greece",
     budget: 1500,
     type: "VACATION",
+    description: "",
   },
   {
     title: "Paris City Tour",
+    destination: "Paris, France",
     startDate: "2025-09-05",
     endDate: "2025-09-10",
-    destination: "Paris, France",
     budget: 1200,
     type: "VACATION",
+    description: "",
   },
   {
     title: "Rome Adventure",
@@ -22,6 +24,7 @@ export const trips = [
     destination: "Rome, Italy",
     budget: 800,
     type: "VACATION",
+    description: "",
   },
   {
     title: "Barcelona Short Trip",
@@ -30,6 +33,7 @@ export const trips = [
     destination: "Barcelona, Spain",
     budget: 950,
     type: "VACATION",
+    description: "",
   },
   {
     title: "Athens City Weekend",
@@ -38,5 +42,6 @@ export const trips = [
     destination: "Athens, Greece",
     budget: 400,
     type: "FAMILY",
+    description: "",
   },
 ];

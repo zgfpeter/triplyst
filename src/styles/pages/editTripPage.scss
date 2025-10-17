@@ -1,0 +1,82 @@
+
+
+// edit page
+
+@use "../mixins.scss" as *;
+@use "../globals.scss" as *;
+@use "../responsive" as *;
+@use "../variables.scss" as *;
+
+.editTrip__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+
+    label {
+      font-weight: 600;
+      color: $dark-blue;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s ease;
+
+      &:focus {
+        border-color: $label-blue;
+      }
+    }
+
+    textarea {
+      min-height: 6rem;
+      resize: vertical;
+    }
+  }
+
+  .editTrip__actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+    margin-top: 1em;
+
+    .save-btn {
+      @include custom-button($dark-blue, white);
+      font-weight: 600;
+
+      &:hover {
+        background-color: $orange-custom;
+      }
+    }
+
+    .cancel-btn {
+      @include custom-button($orange-custom, white);
+      font-weight: 600;
+
+      &:hover {
+        background-color: $dark-blue;
+      }
+    }
+  }
+}
+
+//trip successfully modified message
+
+.tripSuccessMsg {
+  color: rgb(7, 109, 7);
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  transition: opacity 0.5s ease;
+  text-align: center;
+}

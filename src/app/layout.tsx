@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono,Volkhov } from "next/font/google";
+import { Volkhov } from "next/font/google";
 import "./globals.css";
-import "@/styles/globals.scss"
-
-
+import "@/styles/globals.scss";
+import { Providers } from "./providers";
 const volkhov = Volkhov({
   subsets: ["latin"],
   weight: ["400", "700"],
-  variable:'--font-volkhov',
+  variable: "--font-volkhov",
 });
-
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,7 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${volkhov.variable}`}>
-        {children}
+        <Providers>
+          {/* <Navbar/> */}
+          {children}
+        </Providers>
+        {/* wrapping the app with SessionProvider, so that i can access the logged-in session anywheres */}
       </body>
     </html>
   );
