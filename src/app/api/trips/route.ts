@@ -1,17 +1,6 @@
 import postgres from "postgres";
-
+import { Trip } from "@/types/Trip";
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
-
-export type Trip = {
-  id: number;
-  title: string;
-  destination: string;
-  start_date: string;
-  end_date: string;
-  budget: number;
-  type: "VACATION" | "BUSINESS" | "FAMILY" | "";
-  description?: string;
-};
 
 // GET: fetch trip with specific id, for one trip ( like edit trip )
 // otherwise fetch all
@@ -37,7 +26,9 @@ export async function GET(req: Request) {
       });
     } else {
       // Fetch all trips
-      const trips = await sql<Trip[]>`SELECT * FROM trips ORDER BY start_date ASC;`;
+      const trips = await sql<
+        Trip[]
+      >`SELECT * FROM trips ORDER BY start_date ASC;`;
       return new Response(JSON.stringify(trips), {
         status: 200,
         headers: { "Content-Type": "application/json" },
@@ -52,21 +43,31 @@ export async function GET(req: Request) {
   }
 }
 
-
 // POST: add a new trip
 export async function POST(req: Request) {
   try {
     const body = await req.json();
     console.log("POST /api/trips body:", body); // log the incoming request
 
-    const { title, destination, start_date, end_date, budget, type, description } = body;
+    const {
+      title,
+      destination,
+      start_date,
+      end_date,
+      budget,
+      type,
+      description,
+    } = body;
 
     // Validate required fields
     if (!title || !start_date || !end_date) {
-      return new Response(JSON.stringify({ error: "Missing required fields" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
+      return new Response(
+        JSON.stringify({ error: "Missing required fields" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
     // Insert new trip into database
@@ -74,7 +75,9 @@ export async function POST(req: Request) {
       INSERT INTO trips 
       (title, destination, start_date, end_date, budget, "type", description)
       VALUES 
-      (${title}, ${destination}, ${start_date}, ${end_date}, ${budget || null}, ${type || null}, ${description || null})
+      (${title}, ${destination}, ${start_date}, ${end_date}, ${
+      budget || null
+    }, ${type || null}, ${description || null})
       RETURNING *;
     `;
 
@@ -154,7 +157,6 @@ export async function PUT(req: Request) {
   }
 }
 
-
 // delete a trip based on id
 export async function DELETE(req: Request) {
   try {
@@ -177,10 +179,13 @@ export async function DELETE(req: Request) {
       });
     }
 
-    return new Response(JSON.stringify({ message: "Trip deleted successfully" }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    return new Response(
+      JSON.stringify({ message: "Trip deleted successfully" }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   } catch (error) {
     console.error("DELETE /api/trips error:", error);
     return new Response(JSON.stringify({ error: "Failed to delete trip" }), {

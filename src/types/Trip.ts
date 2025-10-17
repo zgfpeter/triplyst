@@ -14,4 +14,5 @@ export type LoginErrors = {
   email?:string;
   username?:string;
   password?: string;
+  general?:string; // typescript complains in setErrors({general:"Invalid username or password"});
 }

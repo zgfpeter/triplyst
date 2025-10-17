@@ -36,6 +36,17 @@ body {
   font-family: var(--font-volkhov), sans-serif;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 
 
 //  margin auto: centers the elemeny only if it has a width smaller than it's container

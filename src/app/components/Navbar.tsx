@@ -1,5 +1,5 @@
 "use client";
-import "@/styles/navbar.scss"
+import "@/styles/navbar.scss";
 import { MdAccountCircle, MdLogout } from "react-icons/md";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
@@ -21,7 +21,7 @@ export default function Navbar() {
       </nav>
     );
   }
-
+  // if user is logged in, show their username and a logout button
   return (
     <main className="navbar__main">
       <Link href="/" aria-label="User page">
@@ -29,7 +29,7 @@ export default function Navbar() {
         <span> {session.user?.name || session.user?.email}</span>
       </Link>
       <button
-      aria-label="Log out"
+        aria-label="Log out"
         onClick={() => signOut({ callbackUrl: "/userLogin" })}
         className="logout--btn"
       >

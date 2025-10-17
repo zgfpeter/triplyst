@@ -1,3 +1,4 @@
+// adds some dummy users to my database
 import postgres from "postgres"; // allows javascript to communicate with a postgresql database;
 // you can run sql queries directly in JS using this library
 import bcrypt from "bcrypt"

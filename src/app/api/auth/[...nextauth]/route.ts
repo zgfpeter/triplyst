@@ -1,11 +1,10 @@
 // [...nextauth] is a special catch-all route used by NextAuth
-import NextAuth, { AuthOptions } from "next-auth";
+import NextAuth, { AuthOptions, User } from "next-auth"; // handles authentication routes and sessions
 import CredentialsProvider from "next-auth/providers/credentials";
 import postgres from "postgres";
 import bcrypt from "bcrypt";
-console.log("POSTRESQL_URL: ", process.env.POSTGRES_URL);
-console.log("SECRET: ", process.env.AUTH_SECRET);
 // connects to my postgresql database
+// rejectUnauthorized:false allows a secure connectctions, required by vercel?
 const sql = postgres(process.env.POSTGRES_URL!, {
   ssl: { rejectUnauthorized: false },
 });
@@ -20,48 +19,57 @@ export const authOptions: AuthOptions = {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) return null;
+      // checks if credentials exists, queries the database for the user with the specific email
+      // returns the object if login successful, otherwise error
+      async authorize(
+        credentials: Record<string, string> | undefined
+      ): Promise<User | null> {
+        if (!credentials?.email || !credentials?.password)
+          throw new Error("Missing email or password.");
+        const users = await sql`
+          SELECT id, username, email, password_hash
+          FROM users
+          WHERE email = ${credentials.email};
+        `;
+        const user = users[0];
 
-        //   const users = await sql`SELECT * FROM users WHERE email = ${credentials.email}`;
-        //   const user = users[0];
-        //   if (!user) return null;
+        if (!user) {
+          throw new Error("User not found");
+        }
+        const isValid = await bcrypt.compare(
+          credentials.password,
+          user.password_hash
+        );
 
-        //temp data
-        const tempemail = "peter@example.com";
-        const tempusername = "peter";
-        const temppassword = "Abc12345";
-
-        //const isValid = await bcrypt.compare(credentials.password, temppassword.password_hash);
-        const isValid = credentials.password == temppassword;
-        if (!isValid) return null;
-
-        //return { id: tempuser.id, name: user.username, email: user.email };
-        return { id: 1, name: tempusername, email: tempemail };
+        if (!isValid) throw new Error("Invalid password/");
+        return { id: user.id, name: user.username, email: user.email };
       },
     }),
   ],
-
+  // JWT - json web tokens, tracks sessions
   session: {
     strategy: "jwt" as const, // or 'database if i want a database sessions
     maxAge: 7 * 24 * 60 * 60, // 7 days
   },
 
+  // callbacks - hooks that allow me to modify JWT, session, redirects
   callbacks: {
     async jwt({ token, user }) {
-      if (user) token.id = user.id;
+      if (user) token.id = Number(user.id);
       return token;
     },
     async session({ session, token }) {
-      session.user.id = token.id;
+      if (session.user && token.id) {
+        session.user.id = Number(token.id); // attach userid to token so that the session can know which user is logged in. JWTs are unique per user.
+      }
       return session;
     },
   },
 
   pages: {
-    signIn: "/userLogin", // custom login page
+    signIn: "/userLogin", // tells nextauth to use my own custom login page instead of the default one
   },
 };
 
-const handler = NextAuth(authOptions);
+const handler = NextAuth(authOptions); 
 export { handler as GET, handler as POST };

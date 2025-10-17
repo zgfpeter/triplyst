@@ -1,19 +1,19 @@
 "use client";
 import "@/styles/pages/userLoginPage.scss"
 import Link from "next/link";
-import { useState } from "react";
-import Navbar from "../components/Navbar";
-import { mockUsers } from "../../../public/data/userData";
+import { ChangeEvent, useState,FormEvent } from "react";
+
+
+// import { mockUsers } from "../../../public/data/userData";
 
 import { LoginErrors } from "@/types/Trip";
 import { signIn } from "next-auth/react";
 export default function UserLogin() {
   const [formData, setFormData] = useState({ email: "", password: "" }); // state that holds the form username and password
-  const [errors, setErrors] = useState({}); // track the errors in the login form. no errors = good :)
-  const [user, setUser] = useState(null);
+  const [errors, setErrors] = useState<LoginErrors>({}); // track the errors in the login form. no errors = good :)
 
   // track and update changes in input
-  const handleChange = (e) => {
+  const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     // e.target.name is the name of the input, like username, or password
     // so for username, e.target.name is username, and e.target.value is the value in the username field
@@ -42,7 +42,7 @@ export default function UserLogin() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // prevent default page reload on submit
     if (validateLoginForm()) {
       // form is valid
@@ -52,7 +52,8 @@ export default function UserLogin() {
         redirect:false, // prevents nextauth from redirecting
       });
 
-      if(res.error){
+      // res.error alone makes typescript complain
+      if(res?.error){
         setErrors({general:"Invalid username or password"})
       }else{
         console.log("Login success");
@@ -65,6 +66,7 @@ export default function UserLogin() {
 
   return (
     <main className="login__main">
+      <h1 className="sr-only">User Login</h1>
       <form className="login__form" onSubmit={handleLogin}>
         <div className="user__input-group">
           <input
@@ -74,9 +76,11 @@ export default function UserLogin() {
             placeholder=" "
             value={formData.email}
             onChange={handleChange}
+            aria-invalid={!!errors.email}
+            aria-describedby={errors.email ? "e-error" : undefined}
           />
           <label htmlFor="email">Email</label>
-          {errors.email && <p className="error--msg">{errors.email}</p>}
+          {errors.email && <p className="error--msg" id="e-error">{errors.email}</p>}
         </div>
 
         <div className="user__input-group">
@@ -87,15 +91,19 @@ export default function UserLogin() {
             placeholder=" "
             value={formData.password}
             onChange={handleChange}
+            //aria-invalid indicates that the entered value ( email,username, password) is valid
+            //tells screen readers that there's a problem with input
+            aria-invalid={!!errors.password}
+            aria-describedby={errors.password ? "p-error" : undefined}
           />
           <label htmlFor="password">Password</label>
-          <p className="forgot--password">Forgot password?</p>
-          {errors.password && <p className="error--msg">{errors.password}</p>}
+          <Link href="/" className="forgot--password">Forgot password?</Link>
+          {errors.password && <p className="error--msg" id="p-error">{errors.password}</p>}
         </div>
         {/* {Object.keys(errors).length === 0 && (
           <p className="success--msg">Success</p>
         )} */}
-        <button className="login__btn" type="submit">
+        <button className="login__btn" type="submit"> 
          <span></span>LOG IN
         </button>
       </form>
