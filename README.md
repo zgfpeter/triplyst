@@ -17,21 +17,21 @@ A full-stack web application that helps users keep track of their trips.
 
 -----
 ## Features
--**User authentication:** Sign up, login, session management with NextAuth
+-**User authentication:** Sign up, login, session management with NextAuth <br/>
 -**Trip Management (CRUD):**
 - Add new trips
 - Edit existing trips
-- Delete trips
-- **Filter**: Toggle between **all trips** or **upcoming trips**
-- **Responsive Design**
-- **Persistent Data:** Trips are stored in an SQL Database
+- Delete trips <br/>
+- **Filter**: Toggle between **all trips** or **upcoming trips** <br/>
+- **Responsive Design** <br/>
+- **Persistent Data:** Trips are stored in an SQL Database <br/>
 
 ## Demo Account
-You can test the app by using the following demo credentials:
+You can test the app by using the following demo credentials: <br/>
 
-Username: peter@example.com
+Username: peter@example.com <br/>
 Password: Abc1234
-
+<br/>
 The demo account includes a few sample trips for demonstration. 
-
+<br/>
 Created by Peter Miron [https://github.com/zgfpeter]
