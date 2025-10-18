@@ -3,14 +3,9 @@ import { useState, useEffect } from "react";
 import { MdLocationPin, MdClear, MdAdd } from "react-icons/md";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import "@/styles/pages/userHomePage.scss"
+import "@/styles/pages/userHomePage.scss";
 import type { Trip } from "@/types/Trip";
-import {
-  monthNames,
-  getYear,
-  getMonthName,
-  formatDayMonth,
-} from "@/utils/dateUtils";
+import { monthNames, getYear, getMonthName, formatDayMonth } from "@/utils/dateUtils";
 
 export default function UserHomePage() {
   const [trips, setTrips] = useState<Trip[]>([]);
@@ -18,7 +13,7 @@ export default function UserHomePage() {
   const [showUpcoming, setShowUpcoming] = useState(true);
   const { data: session, status } = useSession();
 
-  // fetch trips
+  // Fetch trips
   useEffect(() => {
     if (!session) return;
     const fetchTrips = async () => {
@@ -36,20 +31,15 @@ export default function UserHomePage() {
     fetchTrips();
   }, [session]);
 
-  //Wait until session status is known
+  // Loading state
   if (status === "loading" || loading) {
-    return (
-      <p className="loading__item" role="status">
-        Loading trips...
-      </p>
-    );
+    return <p className="loading__item" role="status">Loading trips...</p>;
   }
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  // filter trips
-  // only show the upcoming trips (trips ending on or after current date)
+  // Filter upcoming trips
   const upcomingTrips = trips.filter((trip) => {
     const endDate = new Date(trip.end_date);
     endDate.setHours(0, 0, 0, 0);
@@ -57,16 +47,8 @@ export default function UserHomePage() {
   });
 
   const displayedTrips = showUpcoming ? upcomingTrips : trips;
-  if (!upcomingTrips.length) return <p>No upcoming trips.</p>;
 
-  const formatToday = () =>
-    new Date().toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "long",
-      year: "numeric",
-    });
-
-  // group trips by year and month to display
+  // Group trips by year and month
   const tripsByYearMonth: { [year: number]: { [month: string]: Trip[] } } = {};
   displayedTrips.forEach((trip) => {
     const year = getYear(trip.start_date);
@@ -79,8 +61,7 @@ export default function UserHomePage() {
   Object.values(tripsByYearMonth).forEach((months) => {
     Object.values(months).forEach((tripArr) => {
       tripArr.sort(
-        (a, b) =>
-          new Date(a.start_date).getTime() - new Date(b.start_date).getTime()
+        (a, b) => new Date(a.start_date).getTime() - new Date(b.start_date).getTime()
       );
     });
   });
@@ -97,7 +78,6 @@ export default function UserHomePage() {
     }
   };
 
-  const todayStr = formatToday();
   const typeColors: { [key in Trip["type"]]: string } = {
     VACATION: "#eba40b",
     BUSINESS: "#ff0000",
@@ -105,14 +85,18 @@ export default function UserHomePage() {
     "": "",
   };
 
+  const formatToday = () =>
+    new Date().toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    });
+
   return (
     <main className="page">
+      {/* Header and filters always visible */}
       <header className="page__filter" aria-label="Trip filters">
-        <div
-          className="page__filter--switch"
-          role="group"
-          aria-label="Trip filter toggle"
-        >
+        <div className="page__filter--switch" role="group" aria-label="Trip filter toggle">
           <span aria-hidden="true">ALL</span>
           <label className="switch">
             <input
@@ -126,11 +110,12 @@ export default function UserHomePage() {
           </label>
           <span aria-hidden="true">UPCOMING</span>
         </div>
-        <h2 className="page__date">{todayStr}</h2>
+        <h2 className="page__date">{formatToday()}</h2>
       </header>
 
-      {!displayedTrips.length ? (
-        <p>No trips to display.</p>
+      {/* Main content */}
+      {displayedTrips.length === 0 ? (
+        <p className="no-trips">No trips to display.</p>
       ) : (
         Object.keys(tripsByYearMonth)
           .sort((a, b) => Number(a) - Number(b))
@@ -146,10 +131,7 @@ export default function UserHomePage() {
                       {tripsByYearMonth[Number(year)][month].map((trip) => (
                         <li key={trip.id} className="trip-list-item">
                           <Link
-                            href={{
-                              pathname: `/trips/${trip.id}`,
-                              query: { total: trips.length },
-                            }}
+                            href={{ pathname: `/trips/${trip.id}`, query: { total: trips.length } }}
                             className="page__month--item"
                           >
                             <div className="page__month-item-header">
@@ -165,21 +147,17 @@ export default function UserHomePage() {
                               </div>
                             </div>
                             <div className="page__month-item-body">
-                              <h4 className="page__month-item-title">
-                                {trip.title}
-                              </h4>
+                              <h4 className="page__month-item-title">{trip.title}</h4>
                               <p className="page__month-item-destination">
                                 <MdLocationPin aria-hidden="true" />
                                 {trip.destination}
                               </p>
                             </div>
                             <div className="page__month-item-dates">
-                              {formatDayMonth(trip.start_date)} -{" "}
-                              {formatDayMonth(trip.end_date)}
+                              {formatDayMonth(trip.start_date)} - {formatDayMonth(trip.end_date)}
                             </div>
                           </Link>
 
-                          {/* Delete button moved outside the link */}
                           <button
                             className="page__month-item-clear"
                             aria-label={`Delete trip to ${trip.destination}`}
@@ -195,11 +173,9 @@ export default function UserHomePage() {
             </div>
           ))
       )}
-      <Link
-        className="page__add"
-        href={"/addTrip"}
-        aria-label="Add trip button"
-      >
+
+      {/* Add trip button always visible */}
+      <Link className="page__add" href={"/addTrip"} aria-label="Add trip button">
         <MdAdd />
       </Link>
     </main>

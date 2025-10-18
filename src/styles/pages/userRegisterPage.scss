@@ -1,0 +1,135 @@
+@use "../mixins.scss" as *;
+@use "../globals.scss" as *;
+@use "../responsive" as *;
+@use "../variables.scss" as *;
+
+.login__main {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 1em;
+
+  .login__form {
+
+    margin-top: 2em;
+    box-shadow: 0 0 5px 5px $link-hover;
+    border-radius: 10px;
+    padding: 3em;
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5em;
+    min-width: 480px;
+    background-image: linear-gradient(
+      to right,
+      rgb(245, 248, 248),
+      rgb(234, 238, 241)
+    );
+
+    .user__input-group {
+      position: relative;
+      width: 100%;
+      
+
+      .input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 3em;
+        
+
+        input {
+          flex: 1;
+          padding: 1em;
+          padding-right: 3em;
+          width: 100%;
+          border-radius: 10px;
+          border: none;
+          box-shadow: 0px 0px 10px 1px gainsboro;
+          background: white;
+
+          &:focus {
+            outline: none;
+          }
+        }
+
+        label {
+          position: absolute;
+          left: 1em; // distance from left edge
+          top: 50%; // vertically center
+          transform: translateY(-50%); // center properly
+          transition: 0.3s all ease;
+          color: $dark-blue;
+          pointer-events: none;
+          padding: 0 0.2em;
+        }
+
+        span {
+          position: absolute;
+          right: 0.75em;
+          top: 55%;
+          transform: translateY(-50%);
+
+          color: $orange-custom;
+          font-size: 1.2em;
+        }
+
+        input:focus + label,
+        input:not(:placeholder-shown) + label {
+          top: -15px;
+          left: 0;
+          font-size: 0.8em;
+          color: $orange-custom;
+        }
+      }
+    }
+  }
+
+  .login__btn {
+    position: relative;
+    overflow: hidden;
+    background-color: $orange-custom;
+    color: white;
+    padding: 1em 2em;
+    border-radius: 30px;
+    font-weight: 600;
+    box-shadow: 0px 3px 1px 1px rgb(233, 233, 233);
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: $green-custom;
+      border-radius: 30px;
+      transition: width 0.4s ease-out;
+      z-index: 0;
+    }
+
+    span {
+      position: relative;
+      z-index: 1; // text stays above hover background
+    }
+
+    &:hover::before {
+      width: 100%;
+    }
+  }
+}
+
+.error--msg {
+  margin-top: 0.5em;
+  color: red;
+  font-weight: 100;
+  font-size: 0.9em;
+}
+
+.success--msg {
+  color: green;
+  margin-top: 0.5em;
+}

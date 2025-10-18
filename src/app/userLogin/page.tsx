@@ -1,8 +1,7 @@
 "use client";
-import "@/styles/pages/userLoginPage.scss"
+import "@/styles/pages/userLoginPage.scss";
 import Link from "next/link";
-import { ChangeEvent, useState,FormEvent } from "react";
-
+import { ChangeEvent, useState, FormEvent } from "react";
 
 // import { mockUsers } from "../../../public/data/userData";
 
@@ -13,7 +12,7 @@ export default function UserLogin() {
   const [errors, setErrors] = useState<LoginErrors>({}); // track the errors in the login form. no errors = good :)
 
   // track and update changes in input
-  const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     // e.target.name is the name of the input, like username, or password
     // so for username, e.target.name is username, and e.target.value is the value in the username field
@@ -31,12 +30,12 @@ export default function UserLogin() {
     // for the username
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
-    } 
+    }
 
     // for the password
     if (!formData.password.trim()) {
       newErrors.password = "Password is required";
-    } 
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -46,23 +45,21 @@ export default function UserLogin() {
     e.preventDefault(); // prevent default page reload on submit
     if (validateLoginForm()) {
       // form is valid
-      const res = await signIn("credentials",{
-        email:formData.email, // i'm using email as username, so replace with email
-        password:formData.password,
-        redirect:false, // prevents nextauth from redirecting
+      const res = await signIn("credentials", {
+        email: formData.email, // i'm using email as username, so replace with email
+        password: formData.password,
+        redirect: false, // prevents nextauth from redirecting
       });
 
       // res.error alone makes typescript complain
-      if(res?.error){
-        setErrors({general:"Invalid username or password"})
-      }else{
+      if (res?.error) {
+        setErrors({ general: "Invalid username or password" });
+      } else {
         console.log("Login success");
         window.location.href = "/"; // or redirect to another page, home page is fine
       }
     }
-    }
-
-  
+  };
 
   return (
     <main className="login__main">
@@ -80,9 +77,13 @@ export default function UserLogin() {
             aria-describedby={errors.email ? "e-error" : undefined}
           />
           <label htmlFor="email">Email</label>
-          {errors.email && <p className="error--msg" id="e-error">{errors.email}</p>}
-        </div>
-
+          </div>
+          {errors.email && (
+            <p className="error--msg" id="e-error">
+              {errors.email}
+            </p>
+          )}
+        
         <div className="user__input-group">
           <input
             type="password"
@@ -97,21 +98,27 @@ export default function UserLogin() {
             aria-describedby={errors.password ? "p-error" : undefined}
           />
           <label htmlFor="password">Password</label>
-          <Link href="/" className="forgot--password">Forgot password?</Link>
-          {errors.password && <p className="error--msg" id="p-error">{errors.password}</p>}
-        </div>
+
+          {/* <Link href="/" className="forgot--password">
+            Forgot password?
+          </Link> */}
+          </div>
+          {errors.password && (
+            <p className="error--msg" id="p-error">
+              {errors.password}
+            </p>
+          )}
+        
         {/* {Object.keys(errors).length === 0 && (
           <p className="success--msg">Success</p>
         )} */}
-        <button className="login__btn" type="submit"> 
-         <span></span>LOG IN
+        <button className="login__btn" type="submit">
+          <span></span>LOG IN
         </button>
       </form>
-      <div className="register__main">
-        <p>
+      <p className="register__main">
           Don&apos;t have an account? <Link href="/userRegister">SIGN UP</Link>
-        </p>
-      </div>
+      </p>
     </main>
   );
 }

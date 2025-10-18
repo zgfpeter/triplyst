@@ -1,13 +1,28 @@
 import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import SingleTrip from "@/app/components/SingleTrip"
+import postgres from "postgres";
+import { redirect } from "next/navigation";
+import { Trip } from "@/types/Trip";
+import SingleTripClient from "@/app/components/SingleTripClient";
 
-export default async function SingleTripPage({ params }) {
+const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
+
+async function getUserId() {
   const session = await getServerSession(authOptions);
+  if (!session?.user?.email) return null;
+  const [user] = await sql`SELECT id FROM users WHERE email = ${session.user.email}`;
+  return user?.id || null;
+}
 
+export default async function SingleTripPage({ params }: { params: { id: string } }) {
+  const session = await getServerSession(authOptions);
   if (!session) redirect("/userLogin");
 
-  // session down as a prop
-  return <SingleTrip params={params} session={session} />; 
+  const userId = await getUserId();
+  if (!userId) redirect("/userLogin");
+
+  const [trip] = await sql<Trip[]>`SELECT * FROM trips WHERE id = ${params.id} AND user_id = ${userId}`;
+  if (!trip) return <p className="loading__item">Trip not found</p>;
+
+  return <SingleTripClient trip={trip} session={session} />;
 }

@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-
+import "@/styles/pages/editTripPage.scss"
 export default function EditTrip() {
   const [updateSuccessful,setUpdateSuccessful] = useState(false);
   const [formData, setFormData] = useState({
@@ -25,6 +25,7 @@ export default function EditTrip() {
         const res = await fetch(`/api/trips?id=${id}`);
         if (!res.ok) throw new Error("Failed to fetch trip");
         const trip = await res.json();
+        console.log(trip);
 
         // Fill the form with existing trip data
         setFormData({
@@ -90,9 +91,9 @@ export default function EditTrip() {
   if (loading) return <div className="loading__item">Loading trip...</div>;
 
   return (
-    <main className="addTrip__main">
-      <form onSubmit={handleUpdateTrip}>
-        <div className="input-group">
+    <main className="editTrip__main">
+      <form onSubmit={handleUpdateTrip} className="editTrip__form">
+        <div className="input__group">
           <input
             type="text"
             id="tripTitle"
@@ -105,7 +106,7 @@ export default function EditTrip() {
           <label htmlFor="tripTitle">Title</label>
         </div>
 
-        <div className="input-group">
+        <div className="input__group">
           <input
             type="text"
             id="tripLocation"
@@ -120,7 +121,7 @@ export default function EditTrip() {
         {/* if i use value={formData.start_date} */}
         {/* i get a warning that date format doesn't match */}
         {/* needs to be in the correct format */}
-        <div className="input-group">
+        <div className="input__group">
           <input
             type="date"
             id="tripStartDate"
@@ -133,7 +134,7 @@ export default function EditTrip() {
           <label htmlFor="tripStartDate">Start date</label>
         </div>
 
-        <div className="input-group">
+        <div className="input__group">
           <input
             type="date"
             id="tripEndDate"
@@ -145,7 +146,7 @@ export default function EditTrip() {
           <label htmlFor="tripEndDate">End date</label>
         </div>
 
-        <div className="input-group">
+        <div className="input__group">
           <input
             type="number"
             id="tripBudget"
@@ -157,7 +158,7 @@ export default function EditTrip() {
           <label htmlFor="tripBudget">Budget</label>
         </div>
 
-        <div className="input-group">
+        <div className="input__group">
           <select
             id="trip_type"
             name="trip_type"
@@ -172,7 +173,7 @@ export default function EditTrip() {
           </select>
         </div>
 
-        <div className="input-group">
+        <div className="input__group">
           <input
             type="text"
             id="tripDescription"

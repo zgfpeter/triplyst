@@ -1,7 +1,10 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { LoginErrors } from "@/types/Trip";
-import "@/styles/pages/userLoginPage.scss"; // same styling as login page
+import "@/styles/pages/userRegisterPage.scss";
+import { MdOutlineMail, MdOutlinePerson, MdOutlineLock } from "react-icons/md";
+import { useRouter } from "next/navigation";
+
 export default function UserRegister() {
   const [formData, setFormData] = useState({
     email: "",
@@ -10,22 +13,46 @@ export default function UserRegister() {
   });
   const [errors, setErrors] = useState<LoginErrors>({});
   const [success, setSuccess] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const router = useRouter();
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!validateForm()) {
-      // Improve accessibility
-      // Focus first input with error
       const firstErrorInput = document.querySelector<HTMLInputElement>(
         "input[aria-invalid='true']"
       );
       firstErrorInput?.focus();
-    } else {
+      return;
+    }
+    // register user to the database
+    // make an api call to my register route (POST REQUEST)
+    try {
+      const res = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData), // contains the email, username and password
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        // api returned error
+        setErrors({
+          general: data.error || "Something went wrong during registration",
+        });
+        return;
+      }
+
+      // if api returned success
       setSuccess(true);
-      // Hide success after 2 seconds ( remove? )
-      setTimeout(() => setSuccess(false), 2000);
-      console.log("Successfully registered");
+      setTimeout(() => {
+        setSuccess(false);
+      }, 2000);
+
+      //redirect to home page
+      router.push("/");
+    } catch (err) {
+      console.log(err);
+      setErrors({ general: "Failed to register user" });
     }
   };
 
@@ -33,31 +60,22 @@ export default function UserRegister() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // checks if email is valid and not empty
   const validateForm = () => {
     const newErrors: LoginErrors = {};
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!emailPattern.test(formData.email)) {
+    if (!formData.email.trim()) newErrors.email = "Email is required";
+    else if (!emailPattern.test(formData.email))
       newErrors.email = "Please enter a valid email address";
-    }
 
-    if (!formData.username.trim()) {
-      newErrors.username = "Username is required";
-    } else if (formData.username.trim().length < 3) {
+    if (!formData.username.trim()) newErrors.username = "Username is required";
+    else if (formData.username.trim().length < 3)
       newErrors.username = "Username must be at least 3 characters long";
-    }
 
-    // password must be at least 6 characters, one uppercase and one number
     const passwordPattern = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/;
-    if (!formData.password) {
-      newErrors.password = "Password is required.";
-    } else if (!passwordPattern.test(formData.password)) {
+    if (!formData.password) newErrors.password = "Password is required";
+    else if (!passwordPattern.test(formData.password))
       newErrors.password =
         "Password must be at least 6 characters long and include at least one uppercase letter and one number";
-    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -65,24 +83,27 @@ export default function UserRegister() {
 
   return (
     <main className="login__main">
-     
       <form className="login__form" onSubmit={handleSubmit} noValidate>
-        {/* h1 only visible on screen readers */}
-        <h1 className="sr-only">Sign up</h1> 
+        <h1 className="sr-only">Sign up</h1>
+
+        {/* Email */}
         <div className="user__input-group">
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder=" "
-            value={formData.email}
-            onChange={handleChange}
-            //aria-invalid indicates that the entered value ( email,username, password) is valid
-            //tells screen readers that there's a problem with input
-            aria-invalid={!!errors.email}
-            aria-describedby={errors.email ? "email-error" : undefined}
-          />
-          <label htmlFor="email">Email</label>
+          <div className="input-wrapper">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder=" "
+              value={formData.email}
+              onChange={handleChange}
+              aria-invalid={!!errors.email}
+              aria-describedby={errors.email ? "email-error" : undefined}
+            />
+            <label htmlFor="email">Email</label>
+            <span>
+              <MdOutlineMail />
+            </span>
+          </div>
           {errors.email && (
             <p id="email-error" className="error--msg" role="alert">
               {errors.email}
@@ -92,19 +113,22 @@ export default function UserRegister() {
 
         {/* Username */}
         <div className="user__input-group">
-          <input
-            type="text"
-            id="username"
-            name="username"
-            placeholder=" "
-            value={formData.username}
-            onChange={handleChange}
-            //aria-invalid indicates that the entered value ( email,username, password) is valid
-            //tells screen readers that there's a problem with input
-            aria-invalid={!!errors.username}
-            aria-describedby={errors.username ? "username-error" : undefined}
-          />
-          <label htmlFor="username">Username</label>
+          <div className="input-wrapper">
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder=" "
+              value={formData.username}
+              onChange={handleChange}
+              aria-invalid={!!errors.username}
+              aria-describedby={errors.username ? "username-error" : undefined}
+            />
+            <label htmlFor="username">Username</label>
+            <span>
+              <MdOutlinePerson />
+            </span>
+          </div>
           {errors.username && (
             <p id="username-error" className="error--msg" role="alert">
               {errors.username}
@@ -114,20 +138,22 @@ export default function UserRegister() {
 
         {/* Password */}
         <div className="user__input-group">
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder=" "
-            value={formData.password}
-            onChange={handleChange}
-            //aria-invalid indicates that the entered value ( email,username, password) is valid
-            //tells screen readers that there's a problem with input
-            aria-invalid={!!errors.password}
-            aria-describedby={errors.password ? "password-error" : undefined}
-          />
-          <label htmlFor="password">Password</label>
-          
+          <div className="input-wrapper">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder=" "
+              value={formData.password}
+              onChange={handleChange}
+              aria-invalid={!!errors.password}
+              aria-describedby={errors.password ? "password-error" : undefined}
+            />
+            <label htmlFor="password">Password</label>
+            <span>
+              <MdOutlineLock />
+            </span>
+          </div>
           {errors.password && (
             <p id="password-error" className="error--msg" role="alert">
               {errors.password}
@@ -135,15 +161,20 @@ export default function UserRegister() {
           )}
         </div>
 
-        {/* Success message */}
         {success && (
           <p className="success--msg" role="status" aria-live="polite">
             Registration successful!
           </p>
         )}
+        {/* general error, ex registration failed because user exists */}
+        {errors.general && (
+          <p className="error--msg" role="alert">
+            {errors.general}
+          </p>
+        )}
 
-        <button className="login__btn" type="submit" aria-label="Sign up">
-          SIGN UP
+        <button className="login__btn" type="submit">
+          <span>SIGN UP</span>
         </button>
       </form>
     </main>

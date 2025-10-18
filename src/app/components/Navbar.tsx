@@ -2,13 +2,13 @@
 import "@/styles/navbar.scss";
 import { MdAccountCircle, MdLogout } from "react-icons/md";
 import Link from "next/link";
-import { useSession, signOut } from "next-auth/react";
+import { signOut } from "next-auth/react";
+import type { Session } from "next-auth";
+type NavbarProps = {
+  session: Session;
+};
 
-export default function Navbar() {
-  const { data: session, status } = useSession();
-  if (status === "loading") {
-    return null; // or a spinner
-  }
+export default function Navbar({ session }: NavbarProps) {
 
   // if user not logged in, show a login link
   if (!session) {

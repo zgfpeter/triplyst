@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import "@/styles/pages/addTripPage.scss"
 export default function AddTrip() {
   const [buttonText, setButtonText] = useState("ADD TRIP");
   const [formData, setFormData] = useState({
