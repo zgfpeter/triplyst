@@ -130,10 +130,15 @@
 }
 
 
-.register__main a{
-    text-decoration: underline;
+.register__main {
+    display: flex;
+    justify-content: center;
     opacity: 1;
+    gap:1em;
   
+    a{
+      text-decoration: underline;
+    }
   }
 .success--msg {
   color: green;

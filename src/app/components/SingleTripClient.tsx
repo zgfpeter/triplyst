@@ -33,22 +33,22 @@ const router = useRouter();
 //     currentIndex < trips.length - 1 ? trips[currentIndex + 1] : undefined;
 
 
-  const handleDelete = async (id) => {
-    if (!confirm("Are you sure you want to delete this trip?")) return;
-    try {
-      const res = await fetch(`/api/trips?id=${id}`, { method: "DELETE" });
-      if (!res.ok) throw new Error("Failed to delete trip");
-      alert("Trip deleted successfully!");
-      router.push("/"); // maybe redirect to trips list
-    } catch (error) {
-      console.error(error);
-      alert("An error occurred while deleting trip");
-    }
-  };
+  // const handleDelete = async (id) => {
+  //   if (!confirm("Are you sure you want to delete this trip?")) return;
+  //   try {
+  //     const res = await fetch(`/api/trips?id=${id}`, { method: "DELETE" });
+  //     if (!res.ok) throw new Error("Failed to delete trip");
+  //     alert("Trip deleted successfully!");
+  //     router.push("/"); // maybe redirect to trips list
+  //   } catch (error) {
+  //     console.error(error);
+  //     alert("An error occurred while deleting trip");
+  //   }
+  // };
 
   return (
     <>
-      <Navbar session={session} />
+      <Navbar />
       <main className="item">
         <section className="item__container">
             <div className="item__container--type-btns">
@@ -81,7 +81,7 @@ const router = useRouter();
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                handleDelete(trip.id);
+                // handleDelete(trip.id);
               }}
             >
               <MdDelete />
