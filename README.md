@@ -1,14 +1,14 @@
 To test the functionality, please use the following demo account:
 
-##username: demouser@example.com
-##password: Demo12345
+username: peter@example.com
+password: Abc1234
 
 The test account contains some sample trips.
 
 # Triplyst
 A full-stack web application that helps users keep track of their trips.
 -----
-##Tech Stack
+## Tech Stack
 - **Next.js**
 - **TypeScript**
 - **SCSS**
@@ -18,7 +18,7 @@ A full-stack web application that helps users keep track of their trips.
 -----
 ## Features
 -**User authentication:** Sign up, login, session management with NextAuth
---**Trip Management (CRUD):**
+-**Trip Management (CRUD):**
 - Add new trips
 - Edit existing trips
 - Delete trips
