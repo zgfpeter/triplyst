@@ -22,6 +22,7 @@ export default async function SingleTripPage({
 }) {
   // with dynamic routes like /trips/[id], the params object is a Promise, so i need to await it before using it
   const { id } = await params;
+  
   const session = await getServerSession(authOptions);
   if (!session) redirect("/userLogin");
 

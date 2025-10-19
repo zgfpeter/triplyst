@@ -1,5 +1,5 @@
 "use client";
-// imports 
+// imports
 import Navbar from "@/app/components/Navbar";
 import { Trip } from "@/types/Trip";
 import {
@@ -11,6 +11,7 @@ import {
 } from "react-icons/md";
 import type { Session } from "next-auth";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import "@/styles/pages/singleTripPage.scss";
 import Link from "next/link";
 import Breadcrumbs from "./Breadcrumb";
@@ -30,25 +31,12 @@ export default function SingleTripClient({
     const month = String(date.getMonth() + 1).padStart(2, "0");
     return `${day}/${month}`;
   };
-
-  // TODO : implement previous and next trip functionality when user is on a specific trip page
-  //   const currentIndex = trips.findIndex((t) => t.id === trip.id);
-  //   const prevTrip = currentIndex > 0 ? trips[currentIndex - 1] : undefined;
-  //   const nextTrip =
-  //     currentIndex < trips.length - 1 ? trips[currentIndex + 1] : undefined;
-
-  // const handleDelete = async (id) => {
-  //   if (!confirm("Are you sure you want to delete this trip?")) return;
-  //   try {
-  //     const res = await fetch(`/api/trips?id=${id}`, { method: "DELETE" });
-  //     if (!res.ok) throw new Error("Failed to delete trip");
-  //     alert("Trip deleted successfully!");
-  //     router.push("/"); // maybe redirect to trips list
-  //   } catch (error) {
-  //     console.error(error);
-  //     alert("An error occurred while deleting trip");
-  //   }
-  // };
+  const searchParams = useSearchParams();
+  const total = Number(searchParams.get("total") || 1);
+  const currentId = trip.id;
+  // compute prev/next IDs for the previous and next buttons
+  const prevId = currentId > 1 ? currentId - 1 : null;
+  const nextId = currentId < total ? currentId + 1 : null;
 
   return (
     <>
@@ -108,12 +96,31 @@ export default function SingleTripClient({
           <div className="item__container--description">{trip.description}</div>
         </section>
         <div className="prev__next__btns">
-          <Link href="" className="prev__btn">
-            <MdArrowBack />
-          </Link>
-          <Link href="" className="next__btn">
-            <MdArrowForward />
-          </Link>
+          {prevId ? (
+            <Link
+              href={`/trips/${prevId}?total=${total}`}
+              className="prev__btn"
+            >
+              <MdArrowBack />
+            </Link>
+          ) : (
+            <button className="prev__btn" disabled>
+              <MdArrowBack />
+            </button>
+          )}
+
+          {nextId ? (
+            <Link
+              href={`/trips/${nextId}?total=${total}`}
+              className="next__btn"
+            >
+              <MdArrowForward />
+            </Link>
+          ) : (
+            <button className="next__btn" disabled>
+              <MdArrowForward />
+            </button>
+          )}
         </div>
       </main>
     </>
