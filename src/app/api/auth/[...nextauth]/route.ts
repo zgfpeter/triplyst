@@ -46,6 +46,7 @@ export const authOptions: AuthOptions = {
       },
     }),
   ],
+  secret:process.env.NEXTAUTH_SECRET,
   // JWT - json web tokens, tracks sessions
   session: {
     strategy: "jwt" as const, // or 'database if i want a database sessions
