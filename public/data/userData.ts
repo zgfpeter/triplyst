@@ -9,12 +9,4 @@ export const mockUsers = [
       { id: 2, title: "Hiking in Olympus", date: "2024-09-20" },
     ],
   },
-  {
-    email: "anna@example.com",
-    password: "Abc12345",
-    username: "Anna K.",
-    trips: [
-      { id: 1, title: "Trip to Rome", date: "2024-10-02" },
-    ],
-  },
 ];

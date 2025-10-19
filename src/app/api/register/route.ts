@@ -3,6 +3,8 @@ import bcrypt from "bcrypt";
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: require });
 // registers a new user to my database
+// to register, users have to provide email, username and password
+// TODO: add other sign up methods like google, github, facebook
 export async function POST(req: Request) {
   try {
     const { email, username, password } = await req.json();

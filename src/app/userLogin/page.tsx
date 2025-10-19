@@ -7,6 +7,7 @@ import { ChangeEvent, useState, FormEvent } from "react";
 
 import { LoginErrors } from "@/types/Trip";
 import { signIn } from "next-auth/react";
+
 export default function UserLogin() {
   const [formData, setFormData] = useState({ email: "", password: "" }); // state that holds the form username and password
   const [errors, setErrors] = useState<LoginErrors>({}); // track the errors in the login form. no errors = good :)
@@ -77,13 +78,13 @@ export default function UserLogin() {
             aria-describedby={errors.email ? "e-error" : undefined}
           />
           <label htmlFor="email">Email</label>
-          </div>
-          {errors.email && (
-            <p className="error--msg" id="e-error">
-              {errors.email}
-            </p>
-          )}
-        
+        </div>
+        {errors.email && (
+          <p className="error--msg" id="e-error">
+            {errors.email}
+          </p>
+        )}
+
         <div className="user__input-group">
           <input
             type="password"
@@ -102,13 +103,13 @@ export default function UserLogin() {
           {/* <Link href="/" className="forgot--password">
             Forgot password?
           </Link> */}
-          </div>
-          {errors.password && (
-            <p className="error--msg" id="p-error">
-              {errors.password}
-            </p>
-          )}
-        
+        </div>
+        {errors.password && (
+          <p className="error--msg" id="p-error">
+            {errors.password}
+          </p>
+        )}
+
         {/* {Object.keys(errors).length === 0 && (
           <p className="success--msg">Success</p>
         )} */}
@@ -117,7 +118,7 @@ export default function UserLogin() {
         </button>
       </form>
       <p className="register__main">
-          Don&apos;t have an account? <Link href="/userRegister">SIGN UP</Link>
+        Don&apos;t have an account? <Link href="/userRegister">SIGN UP</Link>
       </p>
     </main>
   );

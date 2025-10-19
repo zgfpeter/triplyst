@@ -2,7 +2,6 @@
 
 @use "../mixins.scss" as *;
 @use "../globals.scss" as *;
-@use "../responsive" as *;
 @use "../variables.scss" as *;
 
 .editTrip__main {
@@ -10,7 +9,7 @@
     display: flex;
     flex-direction: column;
     width: 100vw;
-
+    
     padding: 2em;
     gap: 3em;
 
@@ -33,18 +32,21 @@
 
         &:focus + label,
         &:not(:placeholder-shown) + label {
-          top: -0.6rem;
-          left: 0.5rem;
-          font-size: 0.75rem;
+          top: -1.5rem;
+          left: 0rem;
+          
+          font-size: 0.9rem;
           color: $label-blue;
           background: white;
-          padding: 0 0.25rem;
+          padding:  0.5rem;
+          border-radius: 5px;
         }
       }
 
       label {
         position: absolute;
         left: 0.75rem;
+        padding: 1em;
         top: 1rem;
         color: #777;
         pointer-events: none;

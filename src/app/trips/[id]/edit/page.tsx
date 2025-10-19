@@ -1,9 +1,13 @@
 "use client";
+// imports
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-import "@/styles/pages/editTripPage.scss"
+import "@/styles/pages/editTripPage.scss";
+import Navbar from "@/app/components/Navbar";
+// end imports
+
 export default function EditTrip() {
-  const [updateSuccessful,setUpdateSuccessful] = useState(false);
+  const [updateSuccessful, setUpdateSuccessful] = useState(false);
   const [formData, setFormData] = useState({
     tripTitle: "",
     tripLocation: "",
@@ -61,19 +65,18 @@ export default function EditTrip() {
 
     try {
       const res = await fetch(`/api/trips?id=${id}`, {
-  method: "PUT",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    title: formData.tripTitle,
-    destination: formData.tripLocation,
-    start_date: formData.tripStartDate,
-    end_date: formData.tripEndDate,
-    budget: formData.tripBudget,
-    type: formData.trip_type,
-    description: formData.tripDescription,
-  }),
-});
-
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: formData.tripTitle,
+          destination: formData.tripLocation,
+          start_date: formData.tripStartDate,
+          end_date: formData.tripEndDate,
+          budget: formData.tripBudget,
+          type: formData.trip_type,
+          description: formData.tripDescription,
+        }),
+      });
 
       if (!res.ok) throw new Error("Failed to update trip");
 
@@ -92,6 +95,7 @@ export default function EditTrip() {
 
   return (
     <main className="editTrip__main">
+      <Navbar />
       <form onSubmit={handleUpdateTrip} className="editTrip__form">
         <div className="input__group">
           <input
@@ -128,7 +132,9 @@ export default function EditTrip() {
             name="tripStartDate"
             placeholder=" "
             required
-            value={formData.tripStartDate ? formData.tripStartDate.split("T")[0] : ""} // when splitting by T, you get ["2025-02-12","00:00:00.000Z", so getting [0],returns the correct date]
+            value={
+              formData.tripStartDate ? formData.tripStartDate.split("T")[0] : ""
+            } // when splitting by T, i get ["2025-02-12","00:00:00.000Z", so getting [0],returns the correct date]
             onChange={handleChange}
           />
           <label htmlFor="tripStartDate">Start date</label>
@@ -140,7 +146,9 @@ export default function EditTrip() {
             id="tripEndDate"
             name="tripEndDate"
             placeholder=" "
-            value={formData.tripEndDate ? formData.tripEndDate.split("T")[0] : ""}
+            value={
+              formData.tripEndDate ? formData.tripEndDate.split("T")[0] : ""
+            }
             onChange={handleChange}
           />
           <label htmlFor="tripEndDate">End date</label>
@@ -184,11 +192,7 @@ export default function EditTrip() {
           />
           <label htmlFor="tripDescription">Description</label>
         </div>
-{updateSuccessful && (
-          <p className="tripSuccessMsg">
-            Success!
-          </p>
-        )}
+        {updateSuccessful && <p className="tripSuccessMsg">Success!</p>}
 
         <button className="addTrip-btn" type="submit">
           APPLY CHANGES

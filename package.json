@@ -1,6 +1,16 @@
 {
   "name": "itinerary",
   "version": "0.1.0",
+  "description": "A website built with Next.js, TypeScript, SCSS and SQL that allows users to keep track of their trips.",
+  "author": "Peter Miron",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zgfpeter/itinerary-planner"
+  },
+  "bugs": {
+    "url": "https://github.com/zgfpeter/itinerary-planner/issues"
+  },
+  "homepage": "https://itinerary-planner.vercel.app",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -31,5 +41,14 @@
     "eslint": "^9",
     "eslint-config-next": "15.5.4",
     "typescript": "^5"
-  }
+  },
+  "keywords": [
+    "Next.js",
+    "TypeScript",
+    "SCSS",
+    "CSS",
+    "React",
+    "SQL",
+    "Web Development"
+  ]
 }

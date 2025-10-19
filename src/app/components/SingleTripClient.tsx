@@ -1,5 +1,5 @@
 "use client";
-
+// imports 
 import Navbar from "@/app/components/Navbar";
 import { Trip } from "@/types/Trip";
 import {
@@ -11,15 +11,19 @@ import {
 } from "react-icons/md";
 import type { Session } from "next-auth";
 import { useRouter } from "next/navigation";
-import "@/styles/pages/singleTripPage.scss"
+import "@/styles/pages/singleTripPage.scss";
+import Link from "next/link";
+import Breadcrumbs from "./Breadcrumb";
+// end imports
+
 export default function SingleTripClient({
-     trip,
+  trip,
   session,
 }: {
   trip: Trip;
   session: Session;
 }) {
-const router = useRouter();
+  const router = useRouter();
   const formatDayMonth = (dateStr: string) => {
     const date = new Date(dateStr);
     const day = String(date.getDate()).padStart(2, "0");
@@ -27,11 +31,11 @@ const router = useRouter();
     return `${day}/${month}`;
   };
 
-//   const currentIndex = trips.findIndex((t) => t.id === trip.id);
-//   const prevTrip = currentIndex > 0 ? trips[currentIndex - 1] : undefined;
-//   const nextTrip =
-//     currentIndex < trips.length - 1 ? trips[currentIndex + 1] : undefined;
-
+  // TODO : implement previous and next trip functionality when user is on a specific trip page
+  //   const currentIndex = trips.findIndex((t) => t.id === trip.id);
+  //   const prevTrip = currentIndex > 0 ? trips[currentIndex - 1] : undefined;
+  //   const nextTrip =
+  //     currentIndex < trips.length - 1 ? trips[currentIndex + 1] : undefined;
 
   // const handleDelete = async (id) => {
   //   if (!confirm("Are you sure you want to delete this trip?")) return;
@@ -49,45 +53,48 @@ const router = useRouter();
   return (
     <>
       <Navbar />
+
       <main className="item">
+        <Breadcrumbs tripTitle={trip.title} />
         <section className="item__container">
-            <div className="item__container--type-btns">
-          <div className="trip__type"
-            style={{
-              fontWeight: 600,
-              fontSize: "0.75em",
-              color:
-                trip.type === "VACATION"
-                  ? "#eba40b"
-                  : trip.type === "BUSINESS"
-                  ? "#ff0000"
-                  : trip.type === "FAMILY"
-                  ? "#0e5a9d"
-                  : "",
-              alignSelf: "center",
-            }}
-          >
-            {trip.type}
-          </div>
-<div className="edit--delete--btns">
- <button
-              className="btn edit-btn"
-              onClick={() => router.push(`/trips/${trip.id}/edit`)}
-            >
-              <MdEdit />
-            </button>
-            <button
-              className="btn delete-btn"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                // handleDelete(trip.id);
+          <div className="item__container--type-btns">
+            <div
+              className="trip__type"
+              style={{
+                fontWeight: 600,
+                fontSize: "0.75em",
+                color:
+                  trip.type === "VACATION"
+                    ? "#eba40b"
+                    : trip.type === "BUSINESS"
+                    ? "#ff0000"
+                    : trip.type === "FAMILY"
+                    ? "#0e5a9d"
+                    : "",
+                alignSelf: "center",
               }}
             >
-              <MdDelete />
-            </button>
+              {trip.type}
             </div>
+            <div className="edit--delete--btns">
+              <button
+                className="btn edit-btn"
+                onClick={() => router.push(`/trips/${trip.id}/edit`)}
+              >
+                <MdEdit />
+              </button>
+              <button
+                className="btn delete-btn"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  // handleDelete(trip.id);
+                }}
+              >
+                <MdDelete />
+              </button>
             </div>
+          </div>
           <div className="item__container--location">
             <MdLocationPin />
             {trip.destination}
@@ -100,6 +107,14 @@ const router = useRouter();
           <div>Budget: €{trip.budget}</div>
           <div className="item__container--description">{trip.description}</div>
         </section>
+        <div className="prev__next__btns">
+          <Link href="" className="prev__btn">
+            <MdArrowBack />
+          </Link>
+          <Link href="" className="next__btn">
+            <MdArrowForward />
+          </Link>
+        </div>
       </main>
     </>
   );

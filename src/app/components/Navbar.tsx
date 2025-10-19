@@ -1,13 +1,12 @@
 "use client";
+// imports
 import "@/styles/navbar.scss";
 import { MdAccountCircle, MdLogout } from "react-icons/md";
 import Link from "next/link";
-import { signOut,useSession } from "next-auth/react";
-
-
-
+import { signOut, useSession } from "next-auth/react";
+// end imports
 export default function Navbar() {
-  const {data:session,status} = useSession();
+  const { data: session, status } = useSession();
   // if user not logged in, show a login link
   if (!session) {
     return (

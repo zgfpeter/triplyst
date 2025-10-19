@@ -1,3 +1,5 @@
+// api point to handle user requests for trips
+// when a user makes a request, the apropriate function is executed
 import postgres from "postgres";
 import { Trip } from "@/types/Trip";
 // get the logged in user

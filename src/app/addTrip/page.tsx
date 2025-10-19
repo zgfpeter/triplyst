@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import "@/styles/pages/addTripPage.scss"
+import "@/styles/pages/addTripPage.scss";
+import Navbar from "../components/Navbar";
 export default function AddTrip() {
   const [buttonText, setButtonText] = useState("ADD TRIP");
   const [formData, setFormData] = useState({
@@ -66,7 +67,7 @@ export default function AddTrip() {
         router.push("/"); // Replace "/" with  main page route
       }, 1500);
 
-      // Optional: reset form
+      // reset form
       setFormData({
         tripTitle: "",
         tripLocation: "",
@@ -82,6 +83,8 @@ export default function AddTrip() {
   };
 
   return (
+    <>
+    <Navbar/>
     <main className="addTrip__main">
       <form onSubmit={handleAddTrip}>
         <div className="input-group">
@@ -182,5 +185,6 @@ export default function AddTrip() {
         </button>
       </form>
     </main>
+    </>
   );
 }
