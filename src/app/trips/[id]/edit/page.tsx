@@ -186,6 +186,7 @@ export default function EditTrip() {
             type="text"
             id="tripDescription"
             name="tripDescription"
+            className="edit__trip__description"
             placeholder=" "
             value={formData.tripDescription}
             onChange={handleChange}
