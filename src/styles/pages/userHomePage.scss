@@ -202,8 +202,8 @@
 
   .page__month-item-clear {
     position: absolute;
-    top: 0.5em;
-    right: 0.5em;
+    top: 0em;
+    right: 0em;
     background: transparent;
     border: none;
     color: $orange-custom;
@@ -212,6 +212,7 @@
     transition: 0.4s;
     transform-origin: center;
     display: inline-block;
+    padding: 1em;
 
     svg {
       display: block;

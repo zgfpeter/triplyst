@@ -119,8 +119,10 @@ export default function UserHomePage() {
           aria-label="Trip filter toggle"
         >
           <span aria-hidden="true">ALL</span>
-          <label className="switch">
+          <label className="switch" htmlFor="switch">
             <input
+              name="switch"
+              id="switch"
               role="switch"
               aria-checked={showUpcoming}
               type="checkbox"
@@ -154,7 +156,7 @@ export default function UserHomePage() {
                 .sort((a, b) => monthNames.indexOf(a) - monthNames.indexOf(b))
                 .map((month) => (
                   <section key={month} className="page__months--container">
-                    <h3 className="page__months--heading">{month}</h3>
+                    <h2 className="page__months--heading">{month}</h2>
                     <ul className="trip-list">
                       {tripsByYearMonth[Number(year)][month].map((trip) => (
                         <li key={trip.id} className="trip-list-item">
@@ -178,9 +180,9 @@ export default function UserHomePage() {
                               </div>
                             </div>
                             <div className="page__month-item-body">
-                              <h4 className="page__month-item-title">
+                              <h3 className="page__month-item-title">
                                 {trip.title}
-                              </h4>
+                              </h3>
                               <p className="page__month-item-destination">
                                 <MdLocationPin aria-hidden="true" />
                                 {trip.destination}
