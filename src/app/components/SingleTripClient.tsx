@@ -1,6 +1,7 @@
 "use client";
 // imports
 import Navbar from "@/app/components/Navbar";
+import { formatDayMonth } from "@/utils/dateUtils";
 import { Trip } from "@/types/Trip";
 import {
   MdEdit,
@@ -25,16 +26,12 @@ export default function SingleTripClient({
   session: Session;
 }) {
   const router = useRouter();
-  const formatDayMonth = (dateStr: string) => {
-    const date = new Date(dateStr);
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    return `${day}/${month}`;
-  };
+
   const searchParams = useSearchParams();
   const total = Number(searchParams.get("total") || 1);
   const currentId = trip.id;
   // compute prev/next IDs for the previous and next buttons
+  // TODO : fix, not ideal since trips can be deleted so ids won't be consecutive
   const prevId = currentId > 1 ? currentId - 1 : null;
   const nextId = currentId < total ? currentId + 1 : null;
 
@@ -77,6 +74,7 @@ export default function SingleTripClient({
                   e.preventDefault();
                   e.stopPropagation();
                   // handleDelete(trip.id);
+                  // TODO handle the delete
                 }}
               >
                 <MdDelete />

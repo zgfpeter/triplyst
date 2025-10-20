@@ -1,6 +1,6 @@
 "use client";
 // imports
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { MdLocationPin, MdClear, MdAdd } from "react-icons/md";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
@@ -38,45 +38,46 @@ export default function UserHomePage() {
     fetchTrips();
   }, [session]);
 
-  // Loading state
-  if (status === "loading" || loading) {
-    return (
-      <p className="loading__item" role="status">
-        Loading trips...
-      </p>
-    );
-  }
-
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
   // Find only the upcoming trips
-  const upcomingTrips = trips.filter((trip) => {
-    const endDate = new Date(trip.end_date);
-    endDate.setHours(0, 0, 0, 0);
-    return endDate >= today;
-  });
+  // memoize it so that it only recalculated when trips change
+  const upcomingTrips = useMemo(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return trips.filter((trip) => {
+      const endDate = new Date(trip.end_date);
+      endDate.setHours(0, 0, 0, 0);
+      return endDate >= today;
+    });
+  }, [trips]);
 
-  const displayedTrips = showUpcoming ? upcomingTrips : trips;
+  const displayedTrips = useMemo(
+    () => (showUpcoming ? upcomingTrips : trips),
+    [showUpcoming, upcomingTrips, trips]
+  );
 
   // Group trips by year and month
-  const tripsByYearMonth: { [year: number]: { [month: string]: Trip[] } } = {};
-  displayedTrips.forEach((trip) => {
-    const year = getYear(trip.start_date);
-    const month = getMonthName(trip.start_date);
-    tripsByYearMonth[year] ??= {};
-    tripsByYearMonth[year][month] ??= [];
-    tripsByYearMonth[year][month].push(trip);
-  });
-  // sort the trips so that they can be displayed in order of their date
-  Object.values(tripsByYearMonth).forEach((months) => {
-    Object.values(months).forEach((tripArr) => {
-      tripArr.sort(
-        (a, b) =>
-          new Date(a.start_date).getTime() - new Date(b.start_date).getTime()
-      );
+  const tripsByYearMonth = useMemo(() => {
+    const grouped: { [year: number]: { [month: string]: Trip[] } } = {};
+    displayedTrips.forEach((trip) => {
+      const year = getYear(trip.start_date);
+      const month = getMonthName(trip.start_date);
+      grouped[year] ??= {};
+      grouped[year][month] ??= [];
+      grouped[year][month].push(trip);
     });
-  });
+
+    // Sort trips inside each month
+    Object.values(grouped).forEach((months) => {
+      Object.values(months).forEach((tripArr) => {
+        tripArr.sort(
+          (a, b) =>
+            new Date(a.start_date).getTime() - new Date(b.start_date).getTime()
+        );
+      });
+    });
+
+    return grouped;
+  }, [displayedTrips]);
 
   // delete a trip by id
   const handleDelete = async (id: number) => {
@@ -99,13 +100,14 @@ export default function UserHomePage() {
     "": "",
   };
 
-  // format trip date
-  const formatToday = () =>
-    new Date().toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "long",
-      year: "numeric",
-    });
+  // Loading state
+  if (status === "loading" || loading) {
+    return (
+      <p className="loading__item" role="status">
+        Loading trips...
+      </p>
+    );
+  }
 
   return (
     <main className="page">
@@ -129,7 +131,14 @@ export default function UserHomePage() {
           </label>
           <span aria-hidden="true">UPCOMING</span>
         </div>
-        <h2 className="page__date">{formatToday()}</h2>
+
+        <h2 className="page__date">
+          {new Date().toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+          })}
+        </h2>
       </header>
 
       {/* Main content */}
