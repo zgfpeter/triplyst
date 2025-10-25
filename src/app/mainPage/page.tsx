@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import { MdLocationPin, MdClear, MdAdd } from "react-icons/md";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import "@/styles/pages/userHomePage.scss";
+import styles from "@/styles/pages/userHomePage.module.scss";
 import type { Trip } from "@/types/Trip";
 import {
   monthNames,
@@ -110,16 +110,16 @@ export default function UserHomePage() {
   }
 
   return (
-    <main className="page">
+    <main className={styles.page}>
       {/* Header and filters always visible */}
-      <header className="page__filter" aria-label="Trip filters">
+      <header className={styles.page__filter} aria-label="Trip filters">
         <div
-          className="page__filter--switch"
+          className={styles.page__filter_switch}
           role="group"
           aria-label="Trip filter toggle"
         >
           <span aria-hidden="true">ALL</span>
-          <label className="switch" htmlFor="switch">
+          <label className={styles.switch} htmlFor="switch">
             <input
               name="switch"
               id="switch"
@@ -129,12 +129,12 @@ export default function UserHomePage() {
               checked={showUpcoming}
               onChange={(e) => setShowUpcoming(e.target.checked)}
             />
-            <span className="slider round"></span>
+            <span className={`${styles.slider} ${styles.round}`}></span>
           </label>
           <span aria-hidden="true">UPCOMING</span>
         </div>
 
-        <h2 className="page__date">
+        <h2 className={styles.page__date}>
           {new Date().toLocaleDateString("en-GB", {
             day: "2-digit",
             month: "long",
@@ -145,31 +145,31 @@ export default function UserHomePage() {
 
       {/* Main content */}
       {displayedTrips.length === 0 ? (
-        <p className="no-trips">No trips to display.</p>
+        <p className={styles.no_trips}>No trips to display.</p>
       ) : (
         Object.keys(tripsByYearMonth)
           .sort((a, b) => Number(a) - Number(b))
           .map((year) => (
-            <div key={year} className="page__container">
-              <h1 className="page__heading--main">{year}</h1>
+            <div key={year} className={styles.page__container}>
+              <h1 className={styles.page__heading_main}>{year}</h1>
               {Object.keys(tripsByYearMonth[Number(year)])
                 .sort((a, b) => monthNames.indexOf(a) - monthNames.indexOf(b))
                 .map((month) => (
-                  <section key={month} className="page__months--container">
-                    <h2 className="page__months--heading">{month}</h2>
-                    <ul className="trip-list">
+                  <section key={month} className={styles.page__months_container}>
+                    <h2 className={styles.page__months_heading}>{month}</h2>
+                    <ul className={styles.trip_list}>
                       {tripsByYearMonth[Number(year)][month].map((trip) => (
-                        <li key={trip.id} className="trip-list-item">
+                        <li key={trip.id} className={styles.trip_list_item}>
                           <Link
                             href={{
                               pathname: `/trips/${trip.id}`,
                               query: { total: trips.length },
                             }}
-                            className="page__month--item"
+                            className={styles.page__month_item}
                           >
-                            <div className="page__month-item-header">
+                            <div className={styles.page__month_item_header}>
                               <div
-                                className="page__month-item-type"
+                                className={styles.page__month_item_type}
                                 style={{
                                   color: typeColors[trip.type],
                                   fontWeight: 600,
@@ -179,23 +179,23 @@ export default function UserHomePage() {
                                 {trip.type}
                               </div>
                             </div>
-                            <div className="page__month-item-body">
-                              <h3 className="page__month-item-title">
+                            <div className={styles.page__month_item_body}>
+                              <h3 className={styles.page__month_item_title}>
                                 {trip.title}
                               </h3>
-                              <p className="page__month-item-destination">
+                              <p className={styles.page__month_item_destination}>
                                 <MdLocationPin aria-hidden="true" />
                                 {trip.destination}
                               </p>
                             </div>
-                            <div className="page__month-item-dates">
+                            <div className={styles.page__month_item_dates}>
                               {formatDayMonth(trip.start_date)} -{" "}
                               {formatDayMonth(trip.end_date)}
                             </div>
                           </Link>
 
                           <button
-                            className="page__month-item-clear"
+                            className={styles.page__month_item_clear}
                             aria-label={`Delete trip to ${trip.destination}`}
                             onClick={() => handleDelete(trip.id)}
                           >
@@ -212,7 +212,7 @@ export default function UserHomePage() {
 
       {/* Add trip button always visible */}
       <Link
-        className="page__add"
+        className={styles.page__add}
         href={"/addTrip"}
         aria-label="Add trip button"
       >

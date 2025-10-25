@@ -1,6 +1,5 @@
 // single trip styles
 @use "../mixins.scss" as *;
-@use "../globals.scss" as *;
 @use "../variables.scss" as *;
 
 .item {
@@ -40,13 +39,13 @@ color: $dark-blue;
     width: 100%;
     max-width: 768px;
 
-    .item__container--heading {
+    .item__container_heading {
       border-top: 1px solid $link-hover;
       padding-top: 0.5em;
       
     }
 
-    .item__container--location {
+    .item__container_location {
       display: flex;
       align-self: flex-end;
       align-items: center;
@@ -57,18 +56,18 @@ color: $dark-blue;
       }
     }
 
-    .item__container--description {
+    .item__container_description {
       color: $dark-blue;
       border-top: 1px solid $link-hover;
       padding-top: 1em;
     }
   }
 
-  .item__container--type-btns {
+  .item__container_type_btns {
     display: flex;
     justify-content: space-between;
 
-    .edit--delete--btns {
+    .edit_delete_btns {
       display: flex;
       gap: 1em;
       
@@ -84,10 +83,10 @@ color: $dark-blue;
     }
   }
 
-  .item__container--type-btns button {
+  .item__container_type_btns button {
     font-size: 1.5em;
   }
-  .back-forward-btns {
+  .back-forward_btns {
     display: flex;
     justify-content: space-evenly;
 

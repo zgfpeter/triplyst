@@ -1,5 +1,4 @@
 @use "../mixins.scss" as *;
-@use "../globals.scss" as *;
 @use "../variables.scss" as *;
 
 .login__main {
@@ -40,7 +39,7 @@
   
 
 
-    .user__input-group {
+    .user__input_group {
       position: relative;
       width: 100%;
 
@@ -79,7 +78,7 @@
       }
     }
 
-    .error--msg {
+    .error_msg {
       color: red;
       font-weight: 100;
       font-size: 0.9em;
@@ -142,7 +141,7 @@
       color: white;
     }
   }
-.success--msg {
+.success_msg {
   color: green;
   margin-top: 0.5em;
 }

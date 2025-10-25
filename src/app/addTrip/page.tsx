@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import "@/styles/pages/addTripPage.scss";
+import styles from "@/styles/pages/addTripPage.module.scss";
 import Navbar from "../components/Navbar";
 export default function AddTrip() {
   const [buttonText, setButtonText] = useState("ADD TRIP");
@@ -85,9 +85,9 @@ export default function AddTrip() {
   return (
     <>
     <Navbar/>
-    <main className="addTrip__main">
+    <main className={styles.addTrip__main}>
       <form onSubmit={handleAddTrip}>
-        <div className="input-group">
+        <div className={styles.input_group}>
           <input
             type="text"
             id="tripTitle"
@@ -100,7 +100,7 @@ export default function AddTrip() {
           <label htmlFor="tripTitle">Title</label>
         </div>
 
-        <div className="input-group">
+        <div className={styles.input_group}>
           <input
             type="text"
             id="tripLocation"
@@ -113,7 +113,7 @@ export default function AddTrip() {
           <label htmlFor="tripLocation">Location</label>
         </div>
 
-        <div className="input-group">
+        <div className={styles.input_group}>
           <input
             type="date"
             id="tripStartDate"
@@ -126,7 +126,7 @@ export default function AddTrip() {
           <label htmlFor="tripStartDate">Start date</label>
         </div>
 
-        <div className="input-group">
+        <div className={styles.input_group}>
           <input
             type="date"
             id="tripEndDate"
@@ -139,7 +139,7 @@ export default function AddTrip() {
           <label htmlFor="tripEndDate">End date</label>
         </div>
 
-        <div className="input-group">
+        <div className={styles.input_group}>
           <input
             type="number"
             id="tripBudget"
@@ -152,11 +152,11 @@ export default function AddTrip() {
           <label htmlFor="tripBudget">Budget</label>
         </div>
 
-        <div className="input-group">
+        <div className={styles.input_group}>
           <select
             id="trip_type"
             name="trip_type"
-            className="trip_type-dropdown"
+            className={styles.trip_type_dropdown}
             value={formData.trip_type}
             onChange={handleChange}
             required
@@ -168,7 +168,7 @@ export default function AddTrip() {
           </select>
         </div>
 
-        <div className="input-group">
+        <div className={styles.input_group}>
           <input
             type="text"
             id="tripDescription"
@@ -180,7 +180,7 @@ export default function AddTrip() {
           <label htmlFor="tripDescription">Description</label>
         </div>
 
-        <button className="addTrip-btn" type="submit" aria-label="Add trip">
+        <button className={styles.addTrip_btn} type="submit" aria-label="Add trip">
           {buttonText}
         </button>
       </form>

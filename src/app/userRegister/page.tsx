@@ -1,9 +1,10 @@
 "use client";
 import { useState } from "react";
 import { LoginErrors } from "@/types/Trip";
-import "@/styles/pages/userRegisterPage.scss";
+import styles from "@/styles/pages/userRegisterPage.module.scss";
 import { MdOutlineMail, MdOutlinePerson, MdOutlineLock } from "react-icons/md";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function UserRegister() {
   const [formData, setFormData] = useState({
@@ -82,13 +83,13 @@ export default function UserRegister() {
   };
 
   return (
-    <main className="login__main">
-      <form className="login__form" onSubmit={handleSubmit} noValidate>
-        <h1 className="sr-only">Sign up</h1>
+    <main className={styles.register__main}>
+      <form className={styles.register__form} onSubmit={handleSubmit} noValidate>
+        <h1 className="sr_only">Sign up</h1>
 
         {/* Email */}
-        <div className="user__input-group">
-          <div className="input-wrapper">
+        <div className={styles.user__input_group}>
+          <div className={styles.input_wrapper}>
             <input
               type="email"
               id="email"
@@ -105,15 +106,15 @@ export default function UserRegister() {
             </span>
           </div>
           {errors.email && (
-            <p id="email-error" className="error--msg" role="alert">
+            <p id="email-error" className={styles.error_msg} role="alert">
               {errors.email}
             </p>
           )}
         </div>
 
         {/* Username */}
-        <div className="user__input-group">
-          <div className="input-wrapper">
+        <div className={styles.user__input_group}>
+          <div className={styles.input_wrapper}>
             <input
               type="text"
               id="username"
@@ -130,15 +131,15 @@ export default function UserRegister() {
             </span>
           </div>
           {errors.username && (
-            <p id="username-error" className="error--msg" role="alert">
+            <p id="username-error" className={styles.error_msg} role="alert">
               {errors.username}
             </p>
           )}
         </div>
 
         {/* Password */}
-        <div className="user__input-group">
-          <div className="input-wrapper">
+        <div className={styles.user__input_group}>
+          <div className={styles.input_wrapper}>
             <input
               type="password"
               id="password"
@@ -155,27 +156,28 @@ export default function UserRegister() {
             </span>
           </div>
           {errors.password && (
-            <p id="password-error" className="error--msg" role="alert">
+            <p id="password-error" className={styles.error_msg} role="alert">
               {errors.password}
             </p>
           )}
         </div>
 
         {success && (
-          <p className="success--msg" role="status" aria-live="polite">
+          <p className={styles.success_msg} role="status" aria-live="polite">
             Registration successful!
           </p>
         )}
         {/* general error, ex registration failed because user exists */}
         {errors.general && (
-          <p className="error--msg" role="alert">
+          <p className={styles.error_msg} role="alert">
             {errors.general}
           </p>
         )}
 
-        <button className="login__btn" type="submit">
+        <button className={styles.register__btn} type="submit">
           <span>SIGN UP</span>
         </button>
+        <Link href="/userLogin" className={styles.register__main__back}> Already have an account? <span>LOG IN</span></Link>
       </form>
     </main>
   );

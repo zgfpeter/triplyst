@@ -13,7 +13,7 @@ import {
 import type { Session } from "next-auth";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
-import "@/styles/pages/singleTripPage.scss";
+import styles from "@/styles/pages/singleTripPage.module.scss";
 import Link from "next/link";
 import Breadcrumbs from "./Breadcrumb";
 // end imports
@@ -39,12 +39,12 @@ export default function SingleTripClient({
     <>
       <Navbar />
 
-      <main className="item">
+      <main className={styles.item}>
         <Breadcrumbs tripTitle={trip.title} />
-        <section className="item__container">
-          <div className="item__container--type-btns">
+        <section className={styles.item__container}>
+          <div className={styles.item__container_type_btns}>
             <div
-              className="trip__type"
+              className={styles.trip__type}
               style={{
                 fontWeight: 600,
                 fontSize: "0.75em",
@@ -61,15 +61,15 @@ export default function SingleTripClient({
             >
               {trip.type}
             </div>
-            <div className="edit--delete--btns">
+            <div className={styles.edit_delete_btns}>
               <button
-                className="btn edit-btn"
+                className={`${styles.btn} ${styles.edit_btn}`}
                 onClick={() => router.push(`/trips/${trip.id}/edit`)}
               >
                 <MdEdit />
               </button>
               <button
-                className="btn delete-btn"
+                className={`${styles.btn} ${styles.delete_btn}`}
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
@@ -81,28 +81,28 @@ export default function SingleTripClient({
               </button>
             </div>
           </div>
-          <div className="item__container--location">
+          <div className={styles.item__container_location}>
             <MdLocationPin />
             {trip.destination}
           </div>
 
-          <h1 className="item__container--heading">{trip.title}</h1>
+          <h1 className={styles.item__container_heading}>{trip.title}</h1>
           <div>
             {formatDayMonth(trip.start_date)} - {formatDayMonth(trip.end_date)}
           </div>
           <div>Budget: €{trip.budget}</div>
-          <div className="item__container--description">{trip.description}</div>
+          <div className={styles.item__container_description}>{trip.description}</div>
         </section>
-        <div className="prev__next__btns">
+        <div className={styles.prev__next__btns}>
           {prevId ? (
             <Link
               href={`/trips/${prevId}?total=${total}`}
-              className="prev__btn"
+              className={styles.prev__btn}
             >
               <MdArrowBack />
             </Link>
           ) : (
-            <button className="prev__btn" disabled>
+            <button className={styles.prev__btn} disabled>
               <MdArrowBack />
             </button>
           )}
@@ -110,12 +110,12 @@ export default function SingleTripClient({
           {nextId ? (
             <Link
               href={`/trips/${nextId}?total=${total}`}
-              className="next__btn"
+              className={styles.next__btn}
             >
               <MdArrowForward />
             </Link>
           ) : (
-            <button className="next__btn" disabled>
+            <button className={styles.next__btn} disabled>
               <MdArrowForward />
             </button>
           )}

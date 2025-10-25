@@ -1,7 +1,6 @@
 // edit page
 
 @use "../mixins.scss" as *;
-@use "../globals.scss" as *;
 @use "../variables.scss" as *;
 
 .editTrip__main {
@@ -63,7 +62,7 @@
       }
       
     }
-    .addTrip-btn {
+    .addTrip_btn {
       @include custom-button(#9f2205, white);
       width: 100%;
       font-size: 1em;
@@ -77,7 +76,7 @@
   }
   
 
-  .trip_type-dropdown {
+  .trip_type_dropdown {
     width: 100%;
     padding: 0.8rem 0.5rem;
     font-size: 1rem;

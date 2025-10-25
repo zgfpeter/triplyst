@@ -1,5 +1,5 @@
 "use client";
-import "@/styles/pages/userLoginPage.scss";
+import styles from "@/styles/pages/userLoginPage.module.scss";
 import Link from "next/link";
 import { ChangeEvent, useState, FormEvent } from "react";
 
@@ -63,10 +63,10 @@ export default function UserLogin() {
   };
 
   return (
-    <main className="login__main">
-      <h1 className="sr-only">User Login</h1>
-      <form className="login__form" onSubmit={handleLogin}>
-        <div className="user__input-group">
+    <main className={styles.login__main}>
+      <h1 className="sr_only">Log in</h1>
+      <form className={styles.login__form} onSubmit={handleLogin}>
+        <div className={styles.user__input_group}>
           <input
             type="text"
             id="email"
@@ -80,12 +80,12 @@ export default function UserLogin() {
           <label htmlFor="email">Email</label>
         </div>
         {errors.email && (
-          <p className="error--msg" id="e-error">
+          <p className={styles.error_msg} id="e-error">
             {errors.email}
           </p>
         )}
 
-        <div className="user__input-group">
+        <div className={styles.user__input_group}>
           <input
             type="password"
             id="password"
@@ -100,24 +100,24 @@ export default function UserLogin() {
           />
           <label htmlFor="password">Password</label>
 
-          {/* <Link href="/" className="forgot--password">
+          {/* <Link href="/" className={forgot--password">
             Forgot password?
           </Link> */}
         </div>
         {errors.password && (
-          <p className="error--msg" id="p-error">
+          <p className={styles.error_msg} id="p-error">
             {errors.password}
           </p>
         )}
 
         {/* {Object.keys(errors).length === 0 && (
-          <p className="success--msg">Success</p>
+          <p className={success--msg">Success</p>
         )} */}
-        <button className="login__btn" type="submit">
+        <button className={styles.login__btn} type="submit">
           <span></span>LOG IN
         </button>
       </form>
-      <p className="register__main">
+      <p className={styles.register__main}>
         Don&apos;t have an account? <Link href="/userRegister">SIGN UP</Link>
       </p>
     </main>

@@ -1,15 +1,15 @@
 @use "../mixins.scss" as *;
-@use "../globals.scss" as *;
 @use "../variables.scss" as *;
 
-.login__main {
+.register__main {
   display: flex;
   flex-direction: column;
   text-align: center;
   padding: 1em;
+  min-height: 90vh;
 
-  .login__form {
-
+  .register__form {
+    position: relative;
     margin-top: 2em;
     box-shadow: 0 0 5px 5px $link-hover;
     border-radius: 10px;
@@ -20,23 +20,28 @@
     align-items: center;
     gap: 2.5em;
     min-width: 480px;
-    background-image: linear-gradient(
-      to right,
-      rgb(245, 248, 248),
-      rgb(234, 238, 241)
-    );
+     background-image: url('/assets/plane.svg');
 
-    .user__input-group {
+         // for the background image
+    &::before {
+    content: "";
+    position: absolute;
+    inset: 0; // shorthand for top:0; right:0; bottom:0; left:0;
+    background-color: rgba(0, 10, 23, 0.881);
+    opacity: 1; // controls transparency level
+    z-index: 0;
+    border-radius: 10px;
+  }
+
+    .user__input_group {
       position: relative;
       width: 100%;
-      
 
-      .input-wrapper {
+      .input_wrapper {
         position: relative;
         display: flex;
         align-items: center;
         gap: 3em;
-        
 
         input {
           flex: 1;
@@ -83,9 +88,17 @@
         }
       }
     }
+    .register__main__back {
+      color: white;
+      z-index: 10;
+
+      span {
+        text-decoration: underline;
+      }
+    }
   }
 
-  .login__btn {
+  .register__btn {
     position: relative;
     overflow: hidden;
     background-color: $orange-custom;
@@ -121,14 +134,14 @@
   }
 }
 
-.error--msg {
+.error_msg {
   margin-top: 0.5em;
   color: red;
   font-weight: 100;
   font-size: 0.9em;
 }
 
-.success--msg {
+.success_msg {
   color: green;
   margin-top: 0.5em;
 }

@@ -2,7 +2,7 @@
 // imports
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-import "@/styles/pages/editTripPage.scss";
+import styles from "@/styles/pages/editTripPage.module.scss";
 import Navbar from "@/app/components/Navbar";
 // end imports
 
@@ -91,13 +91,13 @@ export default function EditTrip() {
     }
   };
 
-  if (loading) return <div className="loading__item">Loading trip...</div>;
+  if (loading) return <div className={styles.loading__item}>Loading trip...</div>;
 
   return (
-    <main className="editTrip__main">
+    <main className={styles.editTrip__main}>
       <Navbar />
-      <form onSubmit={handleUpdateTrip} className="editTrip__form">
-        <div className="input__group">
+      <form onSubmit={handleUpdateTrip} className={styles.editTrip__form}>
+        <div className={styles.input__group}>
           <input
             type="text"
             id="tripTitle"
@@ -110,7 +110,7 @@ export default function EditTrip() {
           <label htmlFor="tripTitle">Title</label>
         </div>
 
-        <div className="input__group">
+        <div className={styles.input__group}>
           <input
             type="text"
             id="tripLocation"
@@ -125,7 +125,7 @@ export default function EditTrip() {
         {/* if i use value={formData.start_date} */}
         {/* i get a warning that date format doesn't match */}
         {/* needs to be in the correct format */}
-        <div className="input__group">
+        <div className={styles.input__group}>
           <input
             type="date"
             id="tripStartDate"
@@ -140,7 +140,7 @@ export default function EditTrip() {
           <label htmlFor="tripStartDate">Start date</label>
         </div>
 
-        <div className="input__group">
+        <div className={styles.input__group}>
           <input
             type="date"
             id="tripEndDate"
@@ -154,7 +154,7 @@ export default function EditTrip() {
           <label htmlFor="tripEndDate">End date</label>
         </div>
 
-        <div className="input__group">
+        <div className={styles.input__group}>
           <input
             type="number"
             id="tripBudget"
@@ -166,11 +166,11 @@ export default function EditTrip() {
           <label htmlFor="tripBudget">Budget</label>
         </div>
 
-        <div className="input__group">
+        <div className={styles.input__group}>
           <select
             id="trip_type"
             name="trip_type"
-            className="trip_type-dropdown"
+            className={styles.trip_type_dropdown}
             value={formData.trip_type}
             onChange={handleChange}
           >
@@ -181,21 +181,21 @@ export default function EditTrip() {
           </select>
         </div>
 
-        <div className="input__group">
+        <div className={styles.input__group}>
           <input
             type="text"
             id="tripDescription"
             name="tripDescription"
-            className="edit__trip__description"
+            className={styles.edit__trip__description}
             placeholder=" "
             value={formData.tripDescription}
             onChange={handleChange}
           />
           <label htmlFor="tripDescription">Description</label>
         </div>
-        {updateSuccessful && <p className="tripSuccessMsg">Success!</p>}
+        {updateSuccessful && <p className={styles.tripSuccessMsg}>Success!</p>}
 
-        <button className="addTrip-btn" type="submit">
+        <button className={styles.addTrip_btn} type="submit">
           APPLY CHANGES
         </button>
       </form>

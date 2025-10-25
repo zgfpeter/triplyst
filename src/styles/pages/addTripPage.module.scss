@@ -3,7 +3,6 @@
 // add a new trip
 
 @use "../mixins.scss" as *;
-@use "../globals.scss" as *;
 @use "../variables.scss" as *;
 
 .addTrip__main {
@@ -13,7 +12,7 @@
   padding: 3em;
 }
 
-.input-group {
+.input_group {
   position: relative;
   margin-bottom: 1.5rem;
 
@@ -55,7 +54,7 @@
   }
 }
 
-.addTrip-btn {
+.addTrip_btn {
   @include custom-button(#9f2205, white);
   width: 100%;
   font-size: 1em;
@@ -67,7 +66,7 @@
   }
 }
 
-.trip_type-dropdown {
+.trip_type_dropdown {
   width: 100%;
   padding: 0.8rem 0.5rem;
   font-size: 1rem;

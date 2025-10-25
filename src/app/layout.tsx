@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { Volkhov } from "next/font/google";
+import { Libre_Caslon_Text} from "next/font/google";
 import "./globals.css";
 import "@/styles/globals.scss";
 import Footer from "./components/Footer";
 import { Providers } from "./providers";
-const volkhov = Volkhov({
+const libre_caslon_text = Libre_Caslon_Text({
   subsets: ["latin"],
   weight: ["400", "700"],
-  variable: "--font-volkhov",
+  variable: "--font-libre_caslon_text",
 });
 
 export const metadata: Metadata = {
@@ -44,7 +44,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${volkhov.variable}`}>
+      <body className={`${libre_caslon_text.variable}`}>
         <Providers>
           {/* <Navbar/> */}
           {children}

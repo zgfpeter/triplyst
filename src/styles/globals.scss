@@ -31,11 +31,11 @@ body {
   position: relative;
   width: 100%;
   color: white;
-  font-family: var(--font-volkhov), sans-serif;
-  background-image: linear-gradient(to bottom, rgb(5, 34, 43), rgb(1, 1, 28));
+  font-family: var(--font-libre_caslon_text), sans-serif;
+  background-image: linear-gradient(to bottom, rgb(2, 22, 29), rgb(9, 17, 33));
 }
 
-.sr-only {
+.sr_only {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -53,5 +53,16 @@ body {
 // not signed in message
 .not-signed-in {
   padding: 2em;
+  text-align: center;
+}
+
+//loading item message
+
+.loading__item {
+  color: white;
+  display: flex;
+  height: 100vh;
+  justify-self: center;
+  align-items: center;
   text-align: center;
 }
