@@ -13,7 +13,7 @@ export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
       // a provider that lets users log in with an email and password (my DB,no Google or GitHub)
-      name: "Credentials",
+      name: "Credentials", // name:"Credentials" is just a label that shows up on the login page
       credentials: {
         // defines what fields the login form uses, so in this case the user will log in with email and password
         email: { label: "Email", type: "text" },
@@ -41,13 +41,16 @@ export const authOptions: AuthOptions = {
           user.password_hash
         );
 
-        if (!isValid) throw new Error("Invalid password/");
+        if (!isValid) throw new Error("Invalid password.");
         return { id: user.id, name: user.username, email: user.email };
       },
     }),
   ],
+  // secret is used to sign JWT tokens, encrypt session cookies, validate sessions
+  // critical for security
   secret:process.env.NEXTAUTH_SECRET,
   // JWT - json web tokens, tracks sessions
+  // JWT are tokens that hold user info, sign with our nextauth_secret
   session: {
     strategy: "jwt" as const, // or 'database if i want a database sessions
     maxAge: 7 * 24 * 60 * 60, // 7 days
@@ -56,7 +59,7 @@ export const authOptions: AuthOptions = {
   // callbacks - hooks that allow me to modify JWT, session, redirects
   callbacks: {
     async jwt({ token, user }) {
-      if (user) token.id = Number(user.id);
+      if (user) token.id = Number(user.id); // add the user id to the token after login
       return token;
     },
     async session({ session, token }) {
@@ -64,6 +67,9 @@ export const authOptions: AuthOptions = {
         session.user.id = Number(token.id); // attach userid to token so that the session can know which user is logged in. JWTs are unique per user.
       }
       return session;
+      // now session.user has {id,name,email}
+      // this is how the server and client know 
+      // which user is logged in
     },
   },
 
@@ -72,5 +78,9 @@ export const authOptions: AuthOptions = {
   },
 };
 
-const handler = NextAuth(authOptions);
+const handler = NextAuth(authOptions); // creates the API route handler
+// Exporting as GET and POST means next js will handle both types of http requests
 export { handler as GET, handler as POST };
+
+// GET request: fetche session info or sign-in page
+// POST request: login attempts, logout, callbacks
