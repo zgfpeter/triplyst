@@ -6,34 +6,19 @@
   display: flex;
   flex-direction: column;
   min-width: 100%;
-  padding: 1em;
-  min-height: 90vh;
+  height: auto;
+  min-height: 100vh;
+  padding: 2em;
   position: relative;
   align-items: center;
-  justify-content: space-between;
-color: $dark-blue;
-    // for the background image
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("/assets/plane.svg");
-    background-repeat: repeat;  
-    background-size: 125px; 
-    opacity: 0.1; // adjust to make it lighter or darker
-    z-index: 0; // behind the content
-  }
+  gap: 3em;
+  color: $dark-blue;
 
   .item__container {
     @include flex-column;
     border-radius: 5px;
     padding: 2em 1em;
     gap: 1.5em;
-    margin: 5em 0;
     background-color: whitesmoke;
     z-index: 1;
     width: 100%;
@@ -86,19 +71,6 @@ color: $dark-blue;
   .item__container_type_btns button {
     font-size: 1.5em;
   }
-  .back-forward_btns {
-    display: flex;
-    justify-content: space-evenly;
-
-    button {
-      font-size: 1.5em;
-      color: $dark-blue;
-
-      &:hover {
-        color: $orange-custom;
-      }
-    }
-  }
 
   .prev__next__btns {
     display: flex;
@@ -107,20 +79,19 @@ color: $dark-blue;
     z-index: 10;
     
     
-    .prev__btn,
+  .prev__btn,
   .next__btn {
+    background-color:inherit;
     font-size: 2em;
     padding: 0.5em;
     color: $dark-blue;
     border: 1px solid $orange-custom;
     display: flex;
     border-radius: 50px;
-    background-color: whitesmoke;
-
+    color: white;
 
       &:hover {
-      color: $orange-custom;
-      border-color: $dark-blue;
+      color:$green-custom;
     }
     }
   }

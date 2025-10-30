@@ -10,8 +10,8 @@
 
   .register__form {
     position: relative;
-    margin-top: 2em;
-    box-shadow: 0 0 5px 5px $link-hover;
+    margin-top: 5em;
+    box-shadow: 0 0 1px 1px $link-hover;
     border-radius: 10px;
     padding: 3em;
     display: flex;
@@ -19,19 +19,21 @@
     flex-direction: column;
     align-items: center;
     gap: 2.5em;
-    min-width: 480px;
-     background-image: url('/assets/plane.svg');
+    width: 100%;
+    max-width: 768px;
+    background-image: url("/assets/plane.svg");
+    background-size: cover;
 
-         // for the background image
-    &::before {
-    content: "";
-    position: absolute;
-    inset: 0; // shorthand for top:0; right:0; bottom:0; left:0;
-    background-color: rgba(0, 10, 23, 0.881);
-    opacity: 1; // controls transparency level
-    z-index: 0;
-    border-radius: 10px;
-  }
+           // for the background image
+      &::before {
+      content: "";
+      position: absolute;
+      inset: 0; // shorthand for top:0; right:0; bottom:0; left:0;
+      background-color: rgba(0, 10, 23, 0.881);
+      opacity: 1; // controls transparency level
+      z-index: 0;
+      
+    }
 
     .user__input_group {
       position: relative;
@@ -50,8 +52,6 @@
           width: 100%;
           border-radius: 10px;
           border: none;
-          box-shadow: 0px 0px 10px 1px gainsboro;
-          background: white;
 
           &:focus {
             outline: none;
@@ -96,6 +96,24 @@
         text-decoration: underline;
       }
     }
+
+    //user registration successful
+    .success_msg {
+      position: relative;
+      color: green;
+      margin-top: 2em;
+      z-index: 20;
+    }
+
+    // user registration failed
+    .error_msg {
+      position: relative;
+      margin-top: 2em;
+      color: red;
+      font-weight: 100;
+      font-size: 0.9em;
+      z-index: 20;
+    }
   }
 
   .register__btn {
@@ -132,16 +150,4 @@
       width: 100%;
     }
   }
-}
-
-.error_msg {
-  margin-top: 0.5em;
-  color: red;
-  font-weight: 100;
-  font-size: 0.9em;
-}
-
-.success_msg {
-  color: green;
-  margin-top: 0.5em;
 }

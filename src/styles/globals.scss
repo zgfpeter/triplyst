@@ -11,7 +11,7 @@ ul {
 
 a {
   text-decoration: none;
-  color: black;
+
 }
 
 a:hover {
@@ -31,8 +31,9 @@ body {
   position: relative;
   width: 100%;
   color: white;
-  font-family: var(--font-libre_caslon_text), sans-serif;
-  background-image: linear-gradient(to bottom, rgb(2, 22, 29), rgb(9, 17, 33));
+  font-family: var(--font-spectral), sans-serif;
+  font-weight: 300;
+  background-image: linear-gradient(to bottom, rgb(0, 8, 11), rgb(9, 17, 33));
 }
 
 .sr_only {
@@ -65,4 +66,17 @@ body {
   justify-self: center;
   align-items: center;
   text-align: center;
+}
+
+// breadcrumbs
+.nav__container{
+  color: white;
+  display: flex;
+  gap: 1em;
+  a{
+    color: white;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
 }

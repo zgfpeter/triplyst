@@ -3,7 +3,6 @@
 "use client";
 // imports
 import Link from "next/link";
-import "@/styles/pages/Breadcrumbs.module.scss";
 // end imports
 interface BreadcrumbsProps {
   tripTitle?: string;

@@ -8,8 +8,11 @@
 .addTrip__main {
   display: flex;
   flex-direction: column;
-  margin-top: 3em;
-  padding: 3em;
+  padding: 3em 0;
+  justify-self: center;
+  width: 100%;
+  height: auto;
+  max-width: 768px;
 }
 
 .input_group {

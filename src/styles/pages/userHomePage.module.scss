@@ -9,7 +9,6 @@
   justify-self: center;
   color: white;
   min-height: 90vh;
-
   .page__date {
     text-align: end;
     padding: 1em;
@@ -144,9 +143,11 @@
   border: 0.5px solid $border-orange;
   border-radius: 5px;
   padding: 1em;
+      background-image: linear-gradient(to bottom, rgb(9, 17, 33),rgb(0, 8, 11));
 
   .page__months_heading {
     background-image: linear-gradient(to right, #b93f1d, #ca831e);
+    
     color: white;
     padding: 1em;
     border-radius: 5px 5px 0 0;
@@ -214,13 +215,14 @@
     padding: 1em;
 
     svg {
+      color: red;
       display: block;
       transform-origin: center; // rotate around center, otherwise it rotates left and down
       transition: transform 0.4s ease, color 0.4s ease, font-size 0.4s ease;
 
       &:hover {
         transform: rotate(-60deg) scale(1.2);
-        color: red;
+        
       }
     }
   }

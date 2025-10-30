@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { Libre_Caslon_Text} from "next/font/google";
+import { Spectral} from "next/font/google";
 import "./globals.css";
 import "@/styles/globals.scss";
 import Footer from "./components/Footer";
 import { Providers } from "./providers";
-const libre_caslon_text = Libre_Caslon_Text({
+const spectral = Spectral({
   subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-libre_caslon_text",
+  weight: ["200","300","400", "700"],
+  variable: "--font-spectral",
 });
 
 export const metadata: Metadata = {
@@ -44,7 +44,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${libre_caslon_text.variable}`}>
+      <body className={`${spectral.variable}`}>
         <Providers>
           {/* <Navbar/> */}
           {children}

@@ -27,7 +27,7 @@ export default function UserRegister() {
     // register user to the database
     // make an api call to my register route (POST REQUEST)
     try {
-      const res = await fetch("/api/register", {
+      const res = await fetch("/api/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,6 +35,7 @@ export default function UserRegister() {
         body: JSON.stringify(formData), // contains the email, username and password
       });
       const data = await res.json();
+    
       if (!res.ok) {
         // api returned error
         setErrors({
@@ -47,10 +48,11 @@ export default function UserRegister() {
       setSuccess(true);
       setTimeout(() => {
         setSuccess(false);
+        //redirect to home page
+      router.push("/");
       }, 2000);
 
-      //redirect to home page
-      router.push("/");
+      
     } catch (err) {
       console.log(err);
       setErrors({ general: "Failed to register user" });

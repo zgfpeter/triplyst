@@ -11,7 +11,7 @@ const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
 // Example users (optional: you can remove this and register users manually later)
 const users = [
-  { username: "peter", email: "peter@example.com", password: "Abc1234" },
+  { username: "demouser", email: "demouser@example.com", password: "Abc1234" },
 ];
 
 async function seedUsers() {
