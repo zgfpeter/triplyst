@@ -11,7 +11,7 @@ const spectral = Spectral({
 });
 
 export const metadata: Metadata = {
-  title: "Triplyst - keep track of your trips",
+  title: "Tripkeep - keep track of your trips",
   description:
     "Easily view, create, update and delete your trips with this minimalist trip planner",
   icons: {

@@ -1,11 +1,11 @@
 To test the functionality, please use the following demo account:<br/>
-username: peter@example.com <br/>
+username: demouser@example.com <br/>
 password: Abc1234
 <br/>
 The demo account includes a few sample trips for demonstration. 
 <br/>
 
-# Triplyst
+# Tripkeep
 A full-stack web application that helps users keep track of their trips.
 -----
 ## Tech Stack
