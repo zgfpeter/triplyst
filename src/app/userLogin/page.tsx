@@ -11,6 +11,8 @@ import { signIn } from "next-auth/react";
 export default function UserLogin() {
   const [formData, setFormData] = useState({ email: "", password: "" }); // state that holds the form username and password
   const [errors, setErrors] = useState<LoginErrors>({}); // track the errors in the login form. no errors = good :)
+  const [success, setSuccess] = useState<string | null>(null);
+
 
   // track and update changes in input
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -44,6 +46,7 @@ export default function UserLogin() {
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // prevent default page reload on submit
+    setSuccess(null); // clear success state
     if (validateLoginForm()) {
       // form is valid
       const res = await signIn("credentials", {
@@ -55,8 +58,10 @@ export default function UserLogin() {
       // res.error alone makes typescript complain
       if (res?.error) {
         setErrors({ general: "Invalid username or password" });
+        setSuccess(null);
       } else {
         console.log("Login success");
+        setSuccess("Login successful! Fetching your trips...")
         window.location.href = "/"; // or redirect to another page, home page is fine
       }
     }
@@ -65,7 +70,18 @@ export default function UserLogin() {
   return (
     <main className={styles.login__main}>
       <h1 className="sr_only">Log in</h1>
+
       <form className={styles.login__form} onSubmit={handleLogin}>
+        {errors.general && (
+          <p className={styles.error_msg} role="alert">
+            {errors.general}
+          </p>
+        )}
+
+        {success && (
+          <p className={styles.login_success_msg}>Success!</p>
+        )}
+
         <div className={styles.user__input_group}>
           <input
             type="text"

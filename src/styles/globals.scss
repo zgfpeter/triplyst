@@ -29,7 +29,6 @@ button:hover {
 
 body {
   position: relative;
-  width: 100%;
   color: white;
   font-family: var(--font-spectral), sans-serif;
   font-weight: 300;
@@ -60,12 +59,12 @@ body {
 //loading item message
 
 .loading__item {
-  color: white;
   display: flex;
-  height: 100vh;
-  justify-self: center;
-  align-items: center;
+  justify-content: center;   // horizontally center
+  align-items: center;       // vertically center
+  height: 100vh;             
   text-align: center;
+  color: white;
 }
 
 // breadcrumbs
