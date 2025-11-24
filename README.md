@@ -1,14 +1,14 @@
-To test the functionality, please use the following demo account:<br/>
+Demo account:<br/>
 username: demouser@example.com <br/>
 password: Abc1234
 <br/>
 The demo account includes a few sample trips for demonstration. 
 <br/>
 
-![Login Page](./assets/screenshots/loginPage.jpeg)
-![Main Page](./assets/screenshots/mainPage.jpeg)
-![View Itinerary](./assets/screenshots/viewItem.jpeg)
-![Edit Page](./assets/screenshots/editItem.jpeg)
+![Login Page](./public/assets/screenshots/loginPage.jpeg)
+![Main Page](./public/assets/screenshots/mainPage.jpeg)
+![View Itinerary](./public/assets/screenshots/viewItem.jpeg)
+![Edit Page](./public/assets/screenshots/editItem.jpeg)
 
 # Tripkeep
 A full-stack web application that helps users keep track of their trips.
@@ -38,5 +38,4 @@ Created by Peter Miron [https://github.com/zgfpeter]
 ## License
 ## License
 This project is licensed under the [CC BY-NC 4.0 License](https://creativecommons.org/licenses/by-nc/4.0/).  
-© 2025 Peter Miron - zgfpeter. <br/>
- All rights reserved.  
+zgfpeter. <br/>
