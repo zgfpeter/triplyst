@@ -5,6 +5,11 @@ password: Abc1234
 The demo account includes a few sample trips for demonstration. 
 <br/>
 
+![Login Page](./assets/screenshots/loginPage.jpeg)
+![Main Page](./assets/screenshots/mainPage.jpeg)
+![View Itinerary](./assets/screenshots/viewItem.jpeg)
+![Edit Page](./assets/screenshots/editItem.jpeg)
+
 # Tripkeep
 A full-stack web application that helps users keep track of their trips.
 -----
