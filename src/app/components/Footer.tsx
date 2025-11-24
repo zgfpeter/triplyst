@@ -14,7 +14,9 @@ export default function Footer() {
       </a>
 
       <p className={styles.footer__copyright}>
-        <span>© 2025 zgfpeter.</span> All rights reserved.
+        <span>
+          Created by <span className={styles.footer__signature}>zgfpeter</span>
+        </span>
       </p>
     </footer>
   );
