@@ -8,7 +8,7 @@ The demo account includes a few sample trips for demonstration.
 ![Login Page](./public/assets/screenshots/loginPage.jpeg)
 ![Main Page](./public/assets/screenshots/mainPage.jpeg)
 ![View Itinerary](./public/assets/screenshots/viewItem.jpeg)
-![Edit Page](./public/assets/screenshots/editItem.jpeg)
+![Edit Page](./public/assets/screenshots/editItem.png)
 
 # Tripkeep
 A full-stack web application that helps users keep track of their trips.
