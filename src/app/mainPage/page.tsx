@@ -120,6 +120,7 @@ export default function UserHomePage() {
         >
           <span aria-hidden="true">ALL</span>
           <label className={styles.switch} htmlFor="switch">
+            <span className="sr_only">Show upcoming trips</span>
             <input
               name="switch"
               id="switch"
@@ -155,7 +156,10 @@ export default function UserHomePage() {
               {Object.keys(tripsByYearMonth[Number(year)])
                 .sort((a, b) => monthNames.indexOf(a) - monthNames.indexOf(b))
                 .map((month) => (
-                  <section key={month} className={styles.page__months_container}>
+                  <section
+                    key={month}
+                    className={styles.page__months_container}
+                  >
                     <h2 className={styles.page__months_heading}>{month}</h2>
                     <ul className={styles.trip_list}>
                       {tripsByYearMonth[Number(year)][month].map((trip) => (
@@ -183,7 +187,9 @@ export default function UserHomePage() {
                               <h3 className={styles.page__month_item_title}>
                                 {trip.title}
                               </h3>
-                              <p className={styles.page__month_item_destination}>
+                              <p
+                                className={styles.page__month_item_destination}
+                              >
                                 <MdLocationPin aria-hidden="true" />
                                 {trip.destination}
                               </p>
